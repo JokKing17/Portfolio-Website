@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import Image from 'next/image'
 import { Code2 } from 'lucide-react'
 import { motion } from 'framer-motion'
@@ -7,8 +8,10 @@ import { getMedia, getMediaUrl } from '@/lib/utils'
 import type { Skill } from '@/types/skill'
 
 export function SkillCard({ skill }: { skill: Skill }) {
+  const [iconFailed, setIconFailed] = useState(false)
   const icon = getMedia(skill.icon)
-  const iconUrl = getMediaUrl(skill.icon)
+  const iconUrl = icon?.url?.startsWith('/skill-icons/') ? icon.url : getMediaUrl(skill.icon)
+  const isSvg = iconUrl?.endsWith('.svg')
   const level = Math.min(Math.max(skill.level || 0, 0), 100)
 
   return (
@@ -22,8 +25,16 @@ export function SkillCard({ skill }: { skill: Skill }) {
     >
       <div className="mb-5 flex items-center gap-3">
         <div className="grid size-11 place-items-center rounded-md border border-white/12 bg-white/[0.04]">
-          {iconUrl ? (
-            <Image alt={icon?.alt || skill.name || 'Skill icon'} height={28} src={iconUrl} width={28} />
+          {iconUrl && !iconFailed ? (
+            <Image
+              alt={icon?.alt || skill.name || 'Skill icon'}
+              className="object-contain"
+              height={28}
+              onError={() => setIconFailed(true)}
+              src={iconUrl}
+              unoptimized={isSvg}
+              width={28}
+            />
           ) : (
             <Code2 className="size-5 text-primary" />
           )}
