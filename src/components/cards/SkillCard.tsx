@@ -53,9 +53,8 @@ function iconForSkill(skill: Skill): LucideIcon {
 export function SkillCard({ skill }: { skill: Skill }) {
   const [iconFailed, setIconFailed] = useState(false)
   const icon = getMedia(skill.icon)
-  const iconUrl = icon?.url?.startsWith('/skill-icons/') ? icon.url : getMediaUrl(skill.icon)
+  const iconUrl = getMediaUrl(skill.icon)
   const isSvg = iconUrl?.endsWith('.svg')
-  const isGeneratedSkillIcon = icon?.url?.startsWith('/skill-icons/')
   const SkillIcon = iconForSkill(skill)
   const level = Math.min(Math.max(skill.level || 0, 0), 100)
 
@@ -70,7 +69,7 @@ export function SkillCard({ skill }: { skill: Skill }) {
     >
       <div className="mb-5 flex items-center gap-3">
         <div className="grid size-11 place-items-center rounded-md border border-white/12 bg-white/[0.04]">
-          {iconUrl && !iconFailed && !isGeneratedSkillIcon ? (
+          {iconUrl && !iconFailed ? (
             <Image
               alt={icon?.alt || skill.name || 'Skill icon'}
               className="object-contain"
