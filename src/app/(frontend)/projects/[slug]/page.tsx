@@ -267,21 +267,25 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
   const cover = getMedia(project.coverImage)
   const coverUrl = getMediaUrl(project.coverImage)
+  const coverWidth = cover?.width || 1600
+  const coverHeight = cover?.height || 900
   const tech = textArray(project.techStack)
   const metrics = textArray(project.metrics)
-  const gallery = (project.galleryImages || [])
-    .map((image) => {
-      const asset = getMedia(image)
-      const url = getMediaUrl(image)
+  const gallery = (project.galleryImages || []).flatMap((image) => {
+    const asset = getMedia(image)
+    const url = getMediaUrl(image)
 
-      return url
-        ? {
-            alt: asset?.alt || project.title || 'Project gallery',
-            url
-          }
-        : null
-    })
-    .filter((item): item is { alt: string; url: string } => Boolean(item))
+    if (!url) return []
+
+    return [
+      {
+        alt: asset?.alt || project.title || 'Project gallery',
+        height: asset?.height || undefined,
+        width: asset?.width || undefined,
+        url
+      }
+    ]
+  })
 
   const heroTags = uniqueValues([
     project.category,
@@ -309,9 +313,9 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               </span>
             )}
           </div>
-          <div className="grid gap-6 lg:grid-cols-[minmax(0,1.2fr)_minmax(320px,0.62fr)] lg:items-end">
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,1.35fr)_minmax(300px,0.55fr)] lg:items-end">
             <div>
-              <h1 className="max-w-5xl text-balance text-3xl font-semibold leading-[1.04] text-foreground sm:text-5xl lg:text-[3.25rem]">
+              <h1 className="max-w-6xl text-balance text-3xl font-semibold leading-[1.06] text-foreground sm:text-4xl lg:text-[2.75rem] xl:text-[2.95rem] 2xl:whitespace-nowrap">
                 {project.title}
               </h1>
               {project.shortDescription ? (
@@ -363,20 +367,20 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       </header>
 
       <Reveal className="container pb-8" delay={0.08}>
-        <div className="group relative aspect-[16/8] overflow-hidden rounded-2xl border border-white/12 bg-white/[0.04] shadow-[0_30px_110px_rgba(0,0,0,0.38)] transition duration-500 hover:border-primary/30 hover:shadow-[0_34px_120px_rgba(0,214,201,0.12)] sm:aspect-[16/7]">
+        <div className="group overflow-hidden rounded-2xl border border-white/12 bg-white/[0.04] shadow-[0_30px_110px_rgba(0,0,0,0.38)] transition duration-500 hover:border-primary/30 hover:shadow-[0_34px_120px_rgba(0,214,201,0.12)]">
           {coverUrl ? (
             <Image
               alt={cover?.alt || project.title || 'Project cover'}
-              className="object-cover transition duration-700 group-hover:scale-[1.025]"
-              fill
+              className="mx-auto h-auto w-full object-contain transition duration-700 group-hover:scale-[1.01]"
+              height={coverHeight}
               priority
               sizes="100vw"
               src={coverUrl}
+              width={coverWidth}
             />
           ) : (
-            <div className="h-full bg-aurora" />
+            <div className="aspect-[16/8] bg-aurora" />
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-background/22 via-transparent to-transparent opacity-70" />
         </div>
       </Reveal>
 

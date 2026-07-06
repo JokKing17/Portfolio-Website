@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type CSSProperties } from 'react'
 import Image from 'next/image'
 import { ChevronLeft, ChevronRight, Images, Maximize2, X } from 'lucide-react'
 import { motion } from 'framer-motion'
@@ -8,7 +8,9 @@ import { cn } from '@/lib/utils'
 
 type GalleryItem = {
   alt: string
+  height?: number
   url: string
+  width?: number
 }
 
 type ProjectGalleryProps = {
@@ -16,14 +18,20 @@ type ProjectGalleryProps = {
   title?: string
 }
 
-const layoutClasses = [
-  'md:col-span-2 md:row-span-2',
-  'md:col-span-2',
-  'md:col-span-1',
-  'md:col-span-1',
-  'md:col-span-2',
-  'md:col-span-2 md:row-span-2'
-]
+function getGalleryShape(image: GalleryItem) {
+  const width = image.width || 1200
+  const height = image.height || 900
+  const ratio = Math.max(width / height, 0.2)
+  const colSpan = ratio > 1.18 ? 2 : 1
+  const rowSpan = Math.max(24, Math.min(58, Math.round((colSpan / ratio) * 28)))
+
+  return {
+    colSpan,
+    height,
+    rowSpan,
+    width
+  }
+}
 
 export function ProjectGallery({ images, title = 'Project gallery' }: ProjectGalleryProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
@@ -64,34 +72,47 @@ export function ProjectGallery({ images, title = 'Project gallery' }: ProjectGal
         </span>
       </div>
 
-      <div className="grid auto-rows-[210px] gap-4 md:grid-cols-4 md:auto-rows-[190px] lg:auto-rows-[220px]">
-        {images.map((image, index) => (
-          <motion.button
-            className={cn(
-              'group relative overflow-hidden rounded-2xl border border-white/12 bg-white/[0.04] text-left shadow-[0_26px_90px_rgba(0,0,0,0.28)] transition duration-300 hover:border-primary/35 hover:shadow-[0_28px_100px_rgba(0,214,201,0.13)]',
-              layoutClasses[index % layoutClasses.length]
-            )}
-            initial={{ opacity: 0, y: 24 }}
-            key={`${image.url}-${index}`}
-            onClick={() => setActiveIndex(index)}
-            type="button"
-            viewport={{ once: true, amount: 0.2 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: Math.min(index * 0.05, 0.25), duration: 0.55 }}
-          >
-            <Image
-              alt={image.alt}
-              className="object-cover transition duration-700 group-hover:scale-105"
-              fill
-              sizes="(min-width: 1024px) 50vw, (min-width: 768px) 50vw, 100vw"
-              src={image.url}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-background/55 via-transparent to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
-            <span className="absolute bottom-4 right-4 grid size-10 translate-y-2 place-items-center rounded-full border border-white/15 bg-background/65 text-primary opacity-0 backdrop-blur transition duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-              <Maximize2 className="size-4" />
-            </span>
-          </motion.button>
-        ))}
+      <div className="grid grid-cols-1 gap-4 md:grid-flow-dense md:grid-cols-4 md:auto-rows-[10px]">
+        {images.map((image, index) => {
+          const shape = getGalleryShape(image)
+          const style = {
+            '--gallery-col-span': shape.colSpan,
+            '--gallery-row-span': shape.rowSpan
+          } as CSSProperties
+
+          return (
+            <motion.button
+              className={cn(
+                'group overflow-hidden rounded-2xl border border-white/12 bg-white/[0.04] text-left shadow-[0_26px_90px_rgba(0,0,0,0.28)] transition duration-300 hover:border-primary/35 hover:shadow-[0_28px_100px_rgba(0,214,201,0.13)]',
+                'md:[grid-column-end:span_var(--gallery-col-span)] md:[grid-row-end:span_var(--gallery-row-span)]'
+              )}
+              initial={{ opacity: 0, y: 24 }}
+              key={`${image.url}-${index}`}
+              onClick={() => setActiveIndex(index)}
+              style={style}
+              type="button"
+              viewport={{ once: true, amount: 0.2 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: Math.min(index * 0.05, 0.25), duration: 0.55 }}
+            >
+              <div className="relative flex h-full min-h-0 items-center justify-center bg-background/35">
+                <Image
+                  alt={image.alt}
+                  className="h-auto w-full object-contain transition duration-700 group-hover:scale-[1.025] md:h-full"
+                  height={shape.height}
+                  loading="lazy"
+                  sizes="(min-width: 1024px) 50vw, (min-width: 768px) 50vw, 100vw"
+                  src={image.url}
+                  width={shape.width}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/45 via-transparent to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
+                <span className="absolute bottom-4 right-4 grid size-10 translate-y-2 place-items-center rounded-full border border-white/15 bg-background/65 text-primary opacity-0 backdrop-blur transition duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                  <Maximize2 className="size-4" />
+                </span>
+              </div>
+            </motion.button>
+          )
+        })}
       </div>
 
       {activeImage ? (
