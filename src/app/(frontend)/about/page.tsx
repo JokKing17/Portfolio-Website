@@ -27,7 +27,7 @@ export default async function AboutPage() {
   ])
 
   return (
-    <div className="pt-20">
+    <div className="pt-16">
       <AboutSection about={about} />
       <SkillsSection skills={skills} />
       <ExperienceSection experience={experience} />

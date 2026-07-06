@@ -27,11 +27,11 @@ export function Navbar({ contactInfo, settings }: NavbarProps) {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-background/72 backdrop-blur-xl">
-      <div className="container flex h-20 items-center justify-between gap-4">
+      <div className="container flex h-16 items-center justify-between gap-4">
         <Link className="flex min-w-0 items-center gap-3" href="/">
-          <span className="grid size-10 shrink-0 place-items-center overflow-hidden rounded-md border border-primary/30 bg-primary/10">
+          <span className="relative grid size-12 shrink-0 place-items-center overflow-hidden rounded-full border border-primary/35 bg-primary/10 shadow-glow">
             {logoUrl ? (
-              <Image alt={siteName} height={40} src={logoUrl} width={40} />
+              <Image alt={siteName} className="object-cover" fill sizes="48px" src={logoUrl} />
             ) : (
               <span className="text-sm font-bold text-primary">{siteName.slice(0, 2).toUpperCase()}</span>
             )}

@@ -30,7 +30,7 @@ export function HeroSection({ hero, settings }: HeroSectionProps) {
 
   if (!hero) {
     return (
-      <section className="container grid min-h-screen place-items-center pt-28">
+      <section className="container grid min-h-screen place-items-center pt-20">
         <EmptyState
           title="Hero content is not published yet."
           description="Publish the main introduction to reveal this section."
@@ -40,10 +40,10 @@ export function HeroSection({ hero, settings }: HeroSectionProps) {
   }
 
   return (
-    <section className="relative isolate min-h-screen overflow-hidden pt-24">
+    <section className="relative isolate min-h-screen overflow-hidden pt-16">
       <HeroCanvas modelUrl={modelUrl} particles={settings?.themeSettings?.enableParticles !== false} />
       <div className="absolute inset-0 bg-gradient-to-b from-background/35 via-background/64 to-background" />
-      <div className="container relative z-10 grid min-h-[calc(100vh-6rem)] items-center gap-12 py-16 lg:grid-cols-[1.05fr_0.95fr]">
+      <div className="container relative z-10 grid min-h-[calc(100svh-4rem)] items-start gap-10 pt-10 pb-12 sm:pt-14 lg:grid-cols-[1.05fr_0.95fr] lg:pt-16">
         <div className="max-w-4xl">
           <motion.p
             className="mb-5 text-sm font-semibold uppercase tracking-[0.28em] text-primary"
@@ -137,21 +137,24 @@ export function HeroSection({ hero, settings }: HeroSectionProps) {
           ) : null}
         </div>
         <motion.div
-          className="relative mx-auto hidden aspect-square w-full max-w-md lg:block"
+          className="relative mx-auto hidden aspect-square w-full max-w-lg lg:block"
           initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.25, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="absolute inset-10 rounded-full border border-primary/20 shadow-glow" />
+          <div className="absolute inset-8 rounded-full border border-primary/20 shadow-glow" />
           {profileImageUrl ? (
-            <div className="absolute bottom-10 right-4 h-52 w-44 overflow-hidden rounded-lg border border-white/12 bg-white/[0.04] shadow-2xl">
-              <Image
-                alt={profileImage?.alt || hero.name || 'Profile image'}
-                className="object-cover"
-                fill
-                sizes="176px"
-                src={profileImageUrl}
-              />
+            <div className="absolute bottom-0 right-0 size-72 overflow-hidden rounded-full border border-primary/35 bg-white/[0.04] p-1 shadow-2xl shadow-primary/20">
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/40 via-transparent to-secondary/30" />
+              <div className="relative size-full overflow-hidden rounded-full border border-white/15 bg-background">
+                <Image
+                  alt={profileImage?.alt || hero.name || 'Profile image'}
+                  className="object-cover object-top"
+                  fill
+                  sizes="288px"
+                  src={profileImageUrl}
+                />
+              </div>
             </div>
           ) : null}
         </motion.div>

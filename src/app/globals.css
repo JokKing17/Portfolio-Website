@@ -109,7 +109,7 @@ a {
 }
 
 .section-shell {
-  padding-block: clamp(4.5rem, 10vw, 8rem);
+  padding-block: clamp(3rem, 6vw, 5.5rem);
 }
 
 .focus-ring {

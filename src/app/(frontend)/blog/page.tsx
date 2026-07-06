@@ -18,7 +18,7 @@ export default async function BlogPage() {
   const blogs = await getCollection<Blog>('blogs', { sort: '-publishedDate', limit: 200 })
 
   return (
-    <div className="pt-20">
+    <div className="pt-16">
       <BlogSection blogs={blogs} showArchiveLink={false} />
     </div>
   )

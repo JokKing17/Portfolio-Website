@@ -45,8 +45,8 @@ export default async function ProjectDetailPage({ params }: PageProps) {
   }))
 
   return (
-    <article className="pt-28">
-      <header className="container pb-12">
+    <article className="pt-24">
+      <header className="container pb-8">
         <p className="mb-4 text-sm font-semibold uppercase tracking-[0.24em] text-primary">
           {project.category || project.projectType || 'Project'}
         </p>
@@ -143,7 +143,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         </div>
       </section>
       {gallery.some((item) => item.url) ? (
-        <section className="container pb-24">
+        <section className="container pb-16">
           <div className="grid gap-5 md:grid-cols-2">
             {gallery.map((item, index) =>
               item.url ? (

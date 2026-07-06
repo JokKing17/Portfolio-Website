@@ -35,7 +35,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
   const tags = textArray(blog.tags)
 
   return (
-    <article className="pt-28">
+    <article className="pt-24">
       <header className="container max-w-4xl pb-10">
         <p className="mb-4 text-sm font-semibold uppercase tracking-[0.24em] text-primary">
           {blog.publishedDate ? formatDate(blog.publishedDate) : 'Article'}
@@ -66,7 +66,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
           )}
         </div>
       </div>
-      <section className="container max-w-4xl py-16">
+      <section className="container max-w-4xl py-12">
         <RichText content={blog.content} />
       </section>
     </article>

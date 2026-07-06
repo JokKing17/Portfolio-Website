@@ -17,7 +17,7 @@ export default async function ContactPage() {
   const contactInfo = await getContactInfo()
 
   return (
-    <div className="pt-20">
+    <div className="pt-16">
       <ContactSection contactInfo={contactInfo} />
     </div>
   )

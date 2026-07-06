@@ -18,7 +18,7 @@ export default async function ProjectsPage() {
   const projects = await getCollection<Project>('projects', { sort: 'order', limit: 200 })
 
   return (
-    <div className="pt-20">
+    <div className="pt-16">
       <ProjectsSection projects={projects} showArchiveLink={false} />
     </div>
   )
