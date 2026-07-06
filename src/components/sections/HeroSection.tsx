@@ -137,26 +137,38 @@ export function HeroSection({ hero, settings }: HeroSectionProps) {
           ) : null}
         </div>
         <motion.div
-          className="relative mx-auto hidden aspect-square w-full max-w-lg lg:block"
+          className="relative order-last mx-auto mt-2 aspect-square w-full max-w-[21rem] sm:max-w-[26rem] md:max-w-[30rem] lg:mt-0 lg:max-w-[34rem] xl:max-w-[38rem]"
           initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.25, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="absolute inset-8 rounded-full border border-primary/20 shadow-glow" />
-          {profileImageUrl ? (
-            <div className="absolute bottom-0 right-0 size-72 overflow-hidden rounded-full border border-primary/35 bg-white/[0.04] p-1 shadow-2xl shadow-primary/20">
-              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/40 via-transparent to-secondary/30" />
-              <div className="relative size-full overflow-hidden rounded-full border border-white/15 bg-background">
-                <Image
-                  alt={profileImage?.alt || hero.name || 'Profile image'}
-                  className="object-cover object-top"
-                  fill
-                  sizes="288px"
-                  src={profileImageUrl}
-                />
+          <motion.div
+            animate={{ y: [0, -10, 0] }}
+            className="relative size-full"
+            transition={{ duration: 7, ease: 'easeInOut', repeat: Infinity }}
+          >
+            <div className="absolute inset-4 rounded-full border border-primary/20 shadow-glow sm:inset-6 lg:inset-8" />
+            <div className="absolute inset-8 rounded-full border border-primary/10 shadow-[0_0_90px_rgba(0,214,201,0.2)] sm:inset-10 lg:inset-12" />
+            <div className="absolute -inset-2 rounded-full border border-primary/10 opacity-60" />
+            {profileImageUrl ? (
+              <div className="absolute inset-4 overflow-hidden rounded-full border border-primary/45 bg-white/[0.06] p-1.5 shadow-2xl shadow-primary/25 backdrop-blur-xl sm:inset-6 lg:inset-8">
+                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/30 via-transparent to-secondary/25" />
+                <div className="relative size-full overflow-hidden rounded-full border border-white/15 bg-background">
+                  <Image
+                    alt={profileImage?.alt || hero.name || 'Profile image'}
+                    className="object-cover object-center"
+                    fill
+                    priority
+                    sizes="(min-width: 1280px) 560px, (min-width: 1024px) 500px, (min-width: 768px) 448px, 336px"
+                    src={profileImageUrl}
+                  />
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-t from-background/30 via-transparent to-white/5" />
+                </div>
               </div>
-            </div>
-          ) : null}
+            ) : null}
+            <div className="absolute right-4 top-1/3 size-9 rounded-full border border-primary/40 bg-primary/70 shadow-glow sm:size-11" />
+            <div className="absolute bottom-1/4 left-5 size-3 rounded-full bg-primary shadow-glow sm:size-4" />
+          </motion.div>
         </motion.div>
       </div>
     </section>
