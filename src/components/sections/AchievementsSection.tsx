@@ -36,7 +36,7 @@ export function AchievementsSection({
 
             return (
               <motion.article
-                className="group h-full rounded-2xl bg-gradient-to-br from-primary/45 via-white/10 to-secondary/35 p-px shadow-[0_18px_60px_rgba(0,0,0,0.28)] transition duration-300 hover:shadow-[0_26px_90px_rgba(0,214,201,0.14)]"
+                className="group h-full rounded-2xl bg-gradient-to-br from-primary/35 via-white/[0.12] to-secondary/25 p-px shadow-[0_18px_60px_rgba(0,0,0,0.32)] transition duration-300 hover:shadow-[0_26px_90px_rgba(0,214,201,0.16)]"
                 initial={{ opacity: 0, y: 24 }}
                 key={achievement.id}
                 transition={{ duration: 0.3, ease: 'easeOut' }}
@@ -44,14 +44,14 @@ export function AchievementsSection({
                 whileHover={{ y: -6 }}
                 whileInView={{ opacity: 1, y: 0 }}
               >
-                <div className="glass relative flex h-full min-h-[540px] flex-col overflow-hidden rounded-[15px] border-white/10 bg-card/80 transition duration-300 group-hover:border-primary/35 group-hover:bg-white/[0.055]">
+                <div className="relative flex h-full min-h-[540px] flex-col overflow-hidden rounded-[15px] border border-white/[0.14] bg-[rgba(13,18,27,0.92)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_24px_70px_rgba(0,0,0,0.28)] backdrop-blur-md transition duration-300 group-hover:border-primary/35 group-hover:bg-[rgba(16,23,33,0.94)]">
                   <Link
                     aria-label={`View ${achievement.title} achievement details`}
                     className="absolute inset-0 z-10"
                     href={achievementPath(achievement)}
                   />
 
-                  <div className="relative m-3 mb-0 aspect-[16/10] overflow-hidden rounded-xl border border-white/10 bg-[radial-gradient(circle_at_top_left,rgba(0,214,201,0.18),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.06),rgba(255,255,255,0.015))] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+                  <div className="relative m-3 mb-0 aspect-[16/10] overflow-hidden rounded-xl border border-white/[0.12] bg-[radial-gradient(circle_at_top_left,rgba(0,214,201,0.16),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.075),rgba(255,255,255,0.025))] shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]">
                     {imageUrl ? (
                       <Image
                         alt={image?.alt || achievement.title || 'Achievement image'}
@@ -67,11 +67,11 @@ export function AchievementsSection({
                       </div>
                     )}
                     <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background/85 via-background/20 to-transparent" />
-                    <Badge className="absolute left-4 top-4 rounded-full border-primary/35 bg-primary/15 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-primary shadow-[0_0_26px_rgba(0,214,201,0.22)] backdrop-blur-md">
+                    <Badge className="absolute left-4 top-4 rounded-full border-primary/35 bg-background/70 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-primary shadow-[0_0_26px_rgba(0,214,201,0.2)] backdrop-blur-md">
                       <Trophy className="mr-1.5 size-3" />
                       Achievement
                     </Badge>
-                    <span className="absolute bottom-4 right-4 grid size-10 place-items-center rounded-full border border-white/15 bg-background/55 text-primary shadow-[0_0_24px_rgba(0,214,201,0.18)] backdrop-blur-md transition duration-300 group-hover:-translate-y-0.5 group-hover:border-primary/45 group-hover:bg-primary/10">
+                    <span className="absolute bottom-4 right-4 grid size-10 place-items-center rounded-full border border-white/15 bg-background/70 text-primary shadow-[0_0_24px_rgba(0,214,201,0.18)] backdrop-blur-md transition duration-300 group-hover:-translate-y-0.5 group-hover:border-primary/45 group-hover:bg-primary/[0.12]">
                       <ArrowUpRight className="size-4" />
                     </span>
                   </div>
@@ -79,13 +79,13 @@ export function AchievementsSection({
                   <div className="flex flex-1 flex-col p-5 pt-6 sm:p-6">
                     <div className="flex flex-wrap items-center gap-2 text-xs font-medium text-muted-foreground">
                       {achievement.date ? (
-                        <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.035] px-3 py-1.5">
+                        <span className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.12] bg-white/[0.055] px-3 py-1.5">
                           <CalendarDays className="size-3.5 text-secondary" />
                           {formatDate(achievement.date)}
                         </span>
                       ) : null}
                       {relatedProject ? (
-                        <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/10 px-3 py-1.5 text-primary">
+                        <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/25 bg-primary/[0.12] px-3 py-1.5 text-primary">
                           <Sparkles className="size-3.5" />
                           Related Project
                         </span>
@@ -97,14 +97,14 @@ export function AchievementsSection({
                     </h3>
 
                     {achievement.description ? (
-                      <p className="mt-4 line-clamp-3 min-h-[5.25rem] text-sm leading-7 text-muted-foreground/95">
+                      <p className="mt-4 line-clamp-3 min-h-[5.25rem] text-sm leading-7 text-muted-foreground">
                         {achievement.description}
                       </p>
                     ) : null}
 
                     {relatedProject ? (
                       <Link
-                        className="relative z-20 mt-5 rounded-xl border border-white/10 bg-white/[0.035] p-3 transition duration-300 hover:border-primary/35 hover:bg-primary/10"
+                        className="relative z-20 mt-5 rounded-xl border border-white/[0.12] bg-white/[0.055] p-3 transition duration-300 hover:-translate-y-0.5 hover:border-primary/35 hover:bg-primary/[0.12]"
                         href={`/projects/${relatedProject.slug}`}
                       >
                         <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
@@ -117,7 +117,7 @@ export function AchievementsSection({
                     ) : null}
 
                     <div className="mt-auto pt-6">
-                      <span className="inline-flex items-center gap-2 text-sm font-semibold text-primary">
+                      <span className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-primary/25 bg-primary/[0.12] px-4 py-2.5 text-sm font-semibold text-primary shadow-[0_0_24px_rgba(0,214,201,0.1)] transition duration-300 group-hover:border-primary/45 group-hover:bg-primary/[0.16] group-hover:shadow-[0_0_32px_rgba(0,214,201,0.16)]">
                         View Details
                         <ArrowUpRight className="size-4 transition duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                       </span>

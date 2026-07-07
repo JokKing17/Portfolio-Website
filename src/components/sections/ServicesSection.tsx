@@ -1,7 +1,9 @@
 'use client'
 
 import Image from 'next/image'
-import { Check, Gem } from 'lucide-react'
+import { Check, Gem, Sparkles } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { Badge } from '@/components/ui/badge'
 import { EmptyState } from '@/components/ui/EmptyState'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { getMedia, getMediaUrl, textArray } from '@/lib/utils'
@@ -10,7 +12,11 @@ import type { Service } from '@/types/payload-types'
 export function ServicesSection({ heading, services }: { heading?: string; services: Service[] }) {
   return (
     <section className="section-shell container" id="services">
-      <SectionHeading eyebrow="Services" title={heading || 'Services'} />
+      <SectionHeading
+        eyebrow="Services"
+        title={heading || 'Services'}
+        description="Focused engineering support for AI products, backend systems, and polished web experiences."
+      />
       {!services.length ? (
         <EmptyState title="No services published yet." />
       ) : (
@@ -21,32 +27,60 @@ export function ServicesSection({ heading, services }: { heading?: string; servi
             const features = textArray(service.features)
 
             return (
-              <article
-                className="glass rounded-lg p-6 transition duration-300 hover:border-primary/30 hover:shadow-glow"
+              <motion.article
+                className="group h-full rounded-2xl bg-gradient-to-br from-primary/30 via-white/[0.1] to-secondary/20 p-px shadow-[0_18px_60px_rgba(0,0,0,0.3)] transition duration-300 hover:shadow-[0_26px_90px_rgba(0,214,201,0.14)]"
+                initial={{ opacity: 0, y: 22 }}
                 key={service.id}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
+                viewport={{ amount: 0.25, once: true }}
+                whileHover={{ y: -6 }}
+                whileInView={{ opacity: 1, y: 0 }}
               >
-                <div className="mb-5 grid size-12 place-items-center rounded-md border border-white/12 bg-white/[0.04]">
-                  {iconUrl ? (
-                    <Image alt={icon?.alt || service.title || 'Service icon'} height={30} src={iconUrl} width={30} />
-                  ) : (
-                    <Gem className="size-6 text-primary" />
-                  )}
+                <div className="relative flex h-full min-h-[380px] flex-col overflow-hidden rounded-[15px] border border-white/[0.14] bg-[rgba(13,18,27,0.9)] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_24px_70px_rgba(0,0,0,0.24)] backdrop-blur-md transition duration-300 group-hover:border-primary/35 group-hover:bg-[rgba(16,23,33,0.94)]">
+                  <div className="mb-6 flex items-start justify-between gap-4">
+                    <div className="grid size-14 place-items-center rounded-2xl border border-primary/25 bg-primary/[0.12] text-primary shadow-[0_0_26px_rgba(0,214,201,0.14)] transition duration-300 group-hover:-translate-y-0.5 group-hover:border-primary/45 group-hover:bg-primary/[0.16]">
+                      {iconUrl ? (
+                        <Image
+                          alt={icon?.alt || service.title || 'Service icon'}
+                          className="object-contain"
+                          height={30}
+                          src={iconUrl}
+                          width={30}
+                        />
+                      ) : (
+                        <Gem className="size-6" />
+                      )}
+                    </div>
+                    <Badge className="rounded-full border-secondary/25 bg-secondary/[0.1] px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-secondary">
+                      <Sparkles className="mr-1.5 size-3" />
+                      Service
+                    </Badge>
+                  </div>
+
+                  <h3 className="text-[1.35rem] font-semibold leading-snug text-foreground transition duration-300 group-hover:text-primary">
+                    {service.title}
+                  </h3>
+                  {service.description ? (
+                    <p className="mt-4 leading-7 text-muted-foreground">{service.description}</p>
+                  ) : null}
+
+                  {features.length ? (
+                    <ul className="mt-auto grid gap-2.5 pt-6">
+                      {features.map((feature) => (
+                        <li
+                          className="flex items-start gap-2.5 rounded-xl border border-white/10 bg-white/[0.045] px-3 py-2.5 text-sm leading-6 text-muted-foreground transition duration-300 group-hover:border-white/[0.14]"
+                          key={feature}
+                        >
+                          <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-secondary/[0.14] text-secondary">
+                            <Check className="size-3.5" />
+                          </span>
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
                 </div>
-                <h3 className="text-xl font-semibold">{service.title}</h3>
-                {service.description ? (
-                  <p className="mt-3 leading-7 text-muted-foreground">{service.description}</p>
-                ) : null}
-                {features.length ? (
-                  <ul className="mt-5 grid gap-2">
-                    {features.map((feature) => (
-                      <li className="flex items-start gap-2 text-sm text-muted-foreground" key={feature}>
-                        <Check className="mt-0.5 size-4 shrink-0 text-secondary" />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
-              </article>
+              </motion.article>
             )
           })}
         </div>

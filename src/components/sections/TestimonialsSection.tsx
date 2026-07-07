@@ -14,7 +14,11 @@ export function TestimonialsSection({
 }) {
   return (
     <section className="section-shell container" id="testimonials">
-      <SectionHeading eyebrow="Trust" title={heading || 'Testimonials'} />
+      <SectionHeading
+        eyebrow="Trust"
+        title={heading || 'Testimonials'}
+        description="A cleaner look at feedback from collaborators, clients, and project stakeholders."
+      />
       {!testimonials.length ? (
         <EmptyState title="No testimonials published yet." />
       ) : (
