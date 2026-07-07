@@ -1,9 +1,16 @@
 import type { MetadataRoute } from 'next'
-import { getBlogSlugs, getProjectSlugs } from '@/lib/payload'
+import { achievementSlug } from '@/lib/achievements'
+import { getBlogSlugs, getCollection, getProjectSlugs } from '@/lib/payload'
 import { absoluteUrl } from '@/lib/utils'
+import type { Achievement } from '@/types/payload-types'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [projectSlugs, blogSlugs] = await Promise.all([getProjectSlugs(), getBlogSlugs()])
+  const [projectSlugs, blogSlugs, achievements] = await Promise.all([
+    getProjectSlugs(),
+    getBlogSlugs(),
+    getCollection<Achievement>('achievements', { depth: 0, limit: 1000 })
+  ])
+  const achievementSlugs = achievements.map((achievement) => achievementSlug(achievement))
   const now = new Date()
 
   const staticRoutes = ['/', '/about', '/projects', '/blog', '/contact'].map((route) => ({
@@ -27,5 +34,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url: absoluteUrl(`/blog/${slug}`)
   }))
 
-  return [...staticRoutes, ...projectRoutes, ...blogRoutes]
+  const achievementRoutes = achievementSlugs.map((slug) => ({
+    changeFrequency: 'monthly' as const,
+    lastModified: now,
+    priority: 0.6,
+    url: absoluteUrl(`/achievements/${slug}`)
+  }))
+
+  return [...staticRoutes, ...projectRoutes, ...blogRoutes, ...achievementRoutes]
 }
