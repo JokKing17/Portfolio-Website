@@ -235,11 +235,6 @@ export function ProjectGallery({ images, title = 'Project gallery' }: ProjectGal
                             title={`${image.alt || 'Project PDF'} preview`}
                           />
                         </div>
-                        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background/90 via-background/55 to-transparent px-4 pb-4 pt-12">
-                          <p className="line-clamp-1 text-sm font-medium text-foreground">
-                            {image.alt || 'Project PDF'}
-                          </p>
-                        </div>
                       </>
                     ) : (
                       <div className="grid gap-3 text-center text-muted-foreground">
