@@ -225,13 +225,16 @@ export function ProjectGallery({ images, title = 'Project gallery' }: ProjectGal
                       />
                     ) : isPdf(image) ? (
                       <>
-                        <iframe
-                          aria-hidden="true"
-                          className="pointer-events-none h-full w-full bg-white"
-                          src={pdfPreviewUrl(image.url)}
-                          tabIndex={-1}
-                          title={`${image.alt || 'Project PDF'} preview`}
-                        />
+                        <div className="absolute inset-0 overflow-hidden bg-white">
+                          <iframe
+                            aria-hidden="true"
+                            className="pointer-events-none h-[calc(100%+28px)] w-[calc(100%+28px)] bg-white"
+                            scrolling="no"
+                            src={pdfPreviewUrl(image.url)}
+                            tabIndex={-1}
+                            title={`${image.alt || 'Project PDF'} preview`}
+                          />
+                        </div>
                         <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background/90 via-background/55 to-transparent px-4 pb-4 pt-12">
                           <p className="line-clamp-1 text-sm font-medium text-foreground">
                             {image.alt || 'Project PDF'}
