@@ -32,14 +32,22 @@ function isVideo(item: GalleryItem) {
   return item.mimeType?.startsWith('video/') || false
 }
 
+function isPdf(item: GalleryItem) {
+  return item.mimeType === 'application/pdf' || item.url.toLowerCase().endsWith('.pdf')
+}
+
 function isRenderableImage(item: GalleryItem) {
-  return !item.mimeType || item.mimeType.startsWith('image/')
+  return !isPdf(item) && (!item.mimeType || item.mimeType.startsWith('image/'))
 }
 
 function imageRatio(item: GalleryItem) {
-  const width = item.width || (isVideo(item) ? 1600 : 1200)
-  const height = item.height || (isVideo(item) ? 900 : 900)
+  const width = item.width || (isPdf(item) ? 900 : isVideo(item) ? 1600 : 1200)
+  const height = item.height || (isPdf(item) ? 1200 : 900)
   return Math.max(0.45, Math.min(2.4, width / height))
+}
+
+function pdfPreviewUrl(url: string) {
+  return `${url}#page=1&view=FitH&toolbar=0&navpanes=0&scrollbar=0`
 }
 
 function targetHeightForWidth(width: number) {
@@ -215,6 +223,21 @@ export function ProjectGallery({ images, title = 'Project gallery' }: ProjectGal
                         src={image.url}
                         width={imageWidth}
                       />
+                    ) : isPdf(image) ? (
+                      <>
+                        <iframe
+                          aria-hidden="true"
+                          className="pointer-events-none h-full w-full bg-white"
+                          src={pdfPreviewUrl(image.url)}
+                          tabIndex={-1}
+                          title={`${image.alt || 'Project PDF'} preview`}
+                        />
+                        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background/90 via-background/55 to-transparent px-4 pb-4 pt-12">
+                          <p className="line-clamp-1 text-sm font-medium text-foreground">
+                            {image.alt || 'Project PDF'}
+                          </p>
+                        </div>
+                      </>
                     ) : (
                       <div className="grid gap-3 text-center text-muted-foreground">
                         <FileText className="mx-auto size-10 text-primary" />
@@ -296,6 +319,12 @@ export function ProjectGallery({ images, title = 'Project gallery' }: ProjectGal
                 fill
                 sizes="100vw"
                 src={activeItem.url}
+              />
+            ) : isPdf(activeItem) ? (
+              <iframe
+                className="h-full w-full bg-white"
+                src={activeItem.url}
+                title={activeItem.alt || title}
               />
             ) : (
               <a
