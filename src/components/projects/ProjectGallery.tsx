@@ -2,12 +2,13 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
-import { ChevronLeft, ChevronRight, Images, Maximize2, X } from 'lucide-react'
+import { ChevronLeft, ChevronRight, FileText, Images, Maximize2, PlayCircle, X } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 type GalleryItem = {
   alt: string
   height?: number
+  mimeType?: string
   url: string
   width?: number
 }
@@ -27,9 +28,17 @@ type GalleryRow = {
   items: GalleryLayoutItem[]
 }
 
-function imageRatio(image: GalleryItem) {
-  const width = image.width || 1200
-  const height = image.height || 900
+function isVideo(item: GalleryItem) {
+  return item.mimeType?.startsWith('video/') || false
+}
+
+function isRenderableImage(item: GalleryItem) {
+  return !item.mimeType || item.mimeType.startsWith('image/')
+}
+
+function imageRatio(item: GalleryItem) {
+  const width = item.width || (isVideo(item) ? 1600 : 1200)
+  const height = item.height || (isVideo(item) ? 900 : 900)
   return Math.max(0.45, Math.min(2.4, width / height))
 }
 
@@ -101,7 +110,7 @@ export function ProjectGallery({ images, title = 'Project gallery' }: ProjectGal
   const galleryRef = useRef<HTMLDivElement>(null)
   const [containerWidth, setContainerWidth] = useState(0)
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
-  const activeImage = activeIndex === null ? null : images[activeIndex]
+  const activeItem = activeIndex === null ? null : images[activeIndex]
   const currentIndex = activeIndex ?? 0
   const rows = useMemo(() => buildJustifiedRows(images, containerWidth), [containerWidth, images])
 
@@ -148,7 +157,7 @@ export function ProjectGallery({ images, title = 'Project gallery' }: ProjectGal
           <h2 className="text-2xl font-semibold text-foreground sm:text-3xl">Project visuals</h2>
         </div>
         <span className="rounded-full border border-white/12 bg-white/[0.04] px-4 py-2 text-sm text-muted-foreground">
-          {images.length} {images.length === 1 ? 'image' : 'images'}
+          {images.length} {images.length === 1 ? 'visual' : 'visuals'}
         </span>
       </div>
 
@@ -166,6 +175,7 @@ export function ProjectGallery({ images, title = 'Project gallery' }: ProjectGal
 
               return (
                 <motion.button
+                  aria-label={`Open ${image.alt || (isVideo(image) ? 'gallery video' : 'gallery visual')}`}
                   className="group overflow-hidden rounded-2xl border border-white/12 bg-white/[0.04] text-left shadow-[0_26px_90px_rgba(0,0,0,0.28)] transition duration-300 hover:border-primary/35 hover:shadow-[0_28px_100px_rgba(0,214,201,0.13)]"
                   initial={{ opacity: 0, y: 24 }}
                   key={`${image.url}-${image.index}`}
@@ -181,15 +191,36 @@ export function ProjectGallery({ images, title = 'Project gallery' }: ProjectGal
                   transition={{ delay: Math.min(image.index * 0.04, 0.22), duration: 0.5 }}
                 >
                   <div className="relative flex size-full items-center justify-center bg-background/35">
-                    <Image
-                      alt={image.alt}
-                      className="h-full w-full object-contain transition duration-700 group-hover:scale-[1.025]"
-                      height={imageHeight}
-                      loading="lazy"
-                      sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                      src={image.url}
-                      width={imageWidth}
-                    />
+                    {isVideo(image) ? (
+                      <>
+                        <video
+                          aria-label={image.alt || 'Project gallery video'}
+                          className="h-full w-full object-contain transition duration-700 group-hover:scale-[1.025]"
+                          muted
+                          playsInline
+                          preload="metadata"
+                          src={image.url}
+                        />
+                        <span className="absolute grid size-14 place-items-center rounded-full border border-primary/30 bg-background/70 text-primary shadow-[0_0_30px_rgba(0,214,201,0.18)] backdrop-blur transition duration-300 group-hover:scale-105 group-hover:border-primary/55">
+                          <PlayCircle className="size-7" />
+                        </span>
+                      </>
+                    ) : isRenderableImage(image) ? (
+                      <Image
+                        alt={image.alt}
+                        className="h-full w-full object-contain transition duration-700 group-hover:scale-[1.025]"
+                        height={imageHeight}
+                        loading="lazy"
+                        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                        src={image.url}
+                        width={imageWidth}
+                      />
+                    ) : (
+                      <div className="grid gap-3 text-center text-muted-foreground">
+                        <FileText className="mx-auto size-10 text-primary" />
+                        <span className="px-6 text-sm">{image.alt || 'Project file'}</span>
+                      </div>
+                    )}
                     <div className="absolute inset-0 bg-gradient-to-t from-background/45 via-transparent to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
                     <span className="absolute bottom-4 right-4 grid size-10 translate-y-2 place-items-center rounded-full border border-white/15 bg-background/65 text-primary opacity-0 backdrop-blur transition duration-300 group-hover:translate-y-0 group-hover:opacity-100">
                       <Maximize2 className="size-4" />
@@ -202,14 +233,14 @@ export function ProjectGallery({ images, title = 'Project gallery' }: ProjectGal
         ))}
       </div>
 
-      {activeImage ? (
+      {activeItem ? (
         <div
           className="fixed inset-0 z-[90] grid place-items-center bg-background/88 p-4 backdrop-blur-xl"
           onClick={() => setActiveIndex(null)}
           role="presentation"
         >
           <button
-            aria-label="Close gallery image"
+            aria-label="Close gallery visual"
             className="focus-ring absolute right-4 top-4 grid size-11 place-items-center rounded-full border border-white/12 bg-white/[0.06] text-foreground transition hover:border-primary/45 hover:text-primary"
             onClick={() => setActiveIndex(null)}
             type="button"
@@ -219,7 +250,7 @@ export function ProjectGallery({ images, title = 'Project gallery' }: ProjectGal
           {images.length > 1 ? (
             <>
               <button
-                aria-label="Previous gallery image"
+                aria-label="Previous gallery visual"
                 className="focus-ring absolute left-4 top-1/2 hidden size-11 -translate-y-1/2 place-items-center rounded-full border border-white/12 bg-white/[0.06] text-foreground transition hover:border-primary/45 hover:text-primary sm:grid"
                 onClick={(event) => {
                   event.stopPropagation()
@@ -230,7 +261,7 @@ export function ProjectGallery({ images, title = 'Project gallery' }: ProjectGal
                 <ChevronLeft className="size-5" />
               </button>
               <button
-                aria-label="Next gallery image"
+                aria-label="Next gallery visual"
                 className="focus-ring absolute right-4 top-1/2 hidden size-11 -translate-y-1/2 place-items-center rounded-full border border-white/12 bg-white/[0.06] text-foreground transition hover:border-primary/45 hover:text-primary sm:grid"
                 onClick={(event) => {
                   event.stopPropagation()
@@ -249,13 +280,36 @@ export function ProjectGallery({ images, title = 'Project gallery' }: ProjectGal
             onClick={(event) => event.stopPropagation()}
             transition={{ duration: 0.25 }}
           >
-            <Image
-              alt={activeImage.alt || title}
-              className="object-contain"
-              fill
-              sizes="100vw"
-              src={activeImage.url}
-            />
+            {isVideo(activeItem) ? (
+              <video
+                aria-label={activeItem.alt || title}
+                className="h-full w-full object-contain"
+                controls
+                playsInline
+                preload="metadata"
+                src={activeItem.url}
+              />
+            ) : isRenderableImage(activeItem) ? (
+              <Image
+                alt={activeItem.alt || title}
+                className="object-contain"
+                fill
+                sizes="100vw"
+                src={activeItem.url}
+              />
+            ) : (
+              <a
+                className="grid size-full place-items-center p-8 text-center text-muted-foreground transition hover:text-primary"
+                href={activeItem.url}
+                rel="noreferrer"
+                target="_blank"
+              >
+                <span>
+                  <FileText className="mx-auto mb-4 size-12 text-primary" />
+                  {activeItem.alt || 'Open project file'}
+                </span>
+              </a>
+            )}
           </motion.div>
           <div className="mt-4 rounded-full border border-white/12 bg-white/[0.05] px-4 py-2 text-sm text-muted-foreground">
             {currentIndex + 1} / {images.length}

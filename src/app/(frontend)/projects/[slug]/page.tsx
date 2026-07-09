@@ -281,6 +281,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       {
         alt: asset?.alt || project.title || 'Project gallery',
         height: asset?.height || undefined,
+        mimeType: asset?.mimeType || undefined,
         width: asset?.width || undefined,
         url
       }
