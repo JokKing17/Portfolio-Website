@@ -325,13 +325,13 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               ) : null}
             </div>
             <div className="glass rounded-2xl p-4 shadow-[0_24px_80px_rgba(0,0,0,0.24)]">
-              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
                 <div className="rounded-xl border border-white/10 bg-white/[0.035] p-4">
                   <p className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
                     <CalendarDays className="size-4 text-primary" />
                     Timeline
                   </p>
-                  <p className="text-sm font-medium text-foreground">{dateRange(project)}</p>
+                  <p className="whitespace-nowrap text-sm font-medium text-foreground">{dateRange(project)}</p>
                 </div>
                 <div className="rounded-xl border border-white/10 bg-white/[0.035] p-4">
                   <p className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">

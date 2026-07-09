@@ -32,6 +32,8 @@ const r2Enabled = Boolean(
     process.env.CLOUDFLARE_R2_PUBLIC_URL
 )
 
+const maxUploadSize = 150 * 1024 * 1024
+
 export default buildConfig({
   admin: {
     user: Users.slug,
@@ -69,6 +71,9 @@ export default buildConfig({
   plugins: [
     s3Storage({
       enabled: r2Enabled,
+      clientUploads: {
+        access: ({ req }) => Boolean(req.user)
+      },
       collections: {
         media: {
           disablePayloadAccessControl: true,
@@ -90,6 +95,16 @@ export default buildConfig({
       }
     })
   ],
+  upload: {
+    abortOnLimit: true,
+    limits: {
+      fileSize: maxUploadSize
+    },
+    responseOnLimit: 'Upload is too large. Please keep files under 150 MB.',
+    tempFileDir: 'tmp',
+    uploadTimeout: 5 * 60 * 1000,
+    useTempFiles: true
+  },
   secret: process.env.PAYLOAD_SECRET || 'development-secret-change-before-deploy',
   sharp,
   typescript: {

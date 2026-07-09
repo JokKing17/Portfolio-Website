@@ -69,6 +69,13 @@ CLOUDFLARE_R2_PUBLIC_URL=https://media.yourdomain.com
 ```
 
 Uploads use `@payloadcms/storage-s3` because R2 exposes an S3-compatible API in Node/Vercel environments.
+Large CMS uploads use direct browser-to-R2 uploads, so the bucket must allow CORS `PUT` requests. Configure it from the current environment with:
+
+```bash
+npm run r2:cors
+```
+
+By default this allows upload requests from any origin. To restrict it, set `R2_CORS_ALLOWED_ORIGINS=https://your-domain.com,http://localhost:3000` before running the command.
 
 ## Vercel Deployment
 
@@ -76,8 +83,9 @@ Uploads use `@payloadcms/storage-s3` because R2 exposes an S3-compatible API in 
 2. Import it in Vercel as a Next.js project.
 3. Add all production environment variables from `.env.example`.
 4. Set `NEXT_PUBLIC_SERVER_URL` to your Vercel production URL or custom domain.
-5. Deploy.
-6. Visit `/admin`, create the first user, and publish content.
+5. Run `npm run r2:cors` once for the R2 bucket.
+6. Deploy.
+7. Visit `/admin`, create the first user, and publish content.
 
 Recommended build command:
 
@@ -98,4 +106,5 @@ npm run start
 npm run typecheck
 npm run generate:types
 npm run generate:importmap
+npm run r2:cors
 ```
