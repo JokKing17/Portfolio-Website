@@ -119,3 +119,20 @@ a {
 .focus-ring:focus-visible {
   box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--ring));
 }
+
+@keyframes testimonial-star-shimmer {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.72;
+    transform: scale(0.94);
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .group:hover .testimonial-stars svg {
+    animation: testimonial-star-shimmer 700ms ease-in-out 1;
+  }
+}
