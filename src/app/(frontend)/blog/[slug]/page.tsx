@@ -56,28 +56,33 @@ export default async function BlogDetailPage({ params }: PageProps) {
   return (
     <article className="pb-20 pt-20">
       <ReadingProgress />
-      <header className="container pb-8 pt-7 sm:pt-10">
+      <header className="container pb-10 pt-7 sm:pt-11">
         <Reveal>
-          <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
+          <div className="mb-9 flex items-center justify-between gap-4">
             <Link className="inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground transition hover:-translate-x-0.5 hover:text-primary" href="/blog"><ArrowLeft className="size-4" />Back to Blogs</Link>
-            <ShareButtons compact title={blog.title} />
           </div>
-          <div className="max-w-5xl">
-            <div className="mb-5 flex flex-wrap items-center gap-2">
-              {blog.featured ? <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3 py-1.5 text-xs font-bold uppercase tracking-[.16em] text-primary"><Sparkles className="size-3.5" />Featured</span> : null}
-              {tags.slice(0, 4).map((tag) => <span className="rounded-full border border-white/12 bg-white/[.055] px-3 py-1.5 text-xs text-muted-foreground" key={tag}>{tag}</span>)}
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start">
+            <div className="max-w-5xl">
+              <div className="mb-6 flex flex-wrap items-center gap-2.5">
+                {blog.featured ? <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3 py-1.5 text-xs font-bold uppercase tracking-[.16em] text-primary"><Sparkles className="size-3.5" />Featured</span> : null}
+                {tags.slice(0, 4).map((tag) => <span className="rounded-full border border-white/12 bg-white/[.055] px-3 py-1.5 text-xs text-muted-foreground" key={tag}>{tag}</span>)}
+              </div>
+              <h1 className="text-balance text-4xl font-semibold leading-[1.06] tracking-[-0.025em] text-foreground sm:text-5xl lg:text-6xl xl:text-7xl">{blog.title}</h1>
+              {blog.excerpt ? <p className="mt-7 max-w-[72ch] text-lg leading-8 text-muted-foreground sm:text-xl sm:leading-9">{blog.excerpt}</p> : null}
+              <div className="mt-8 flex flex-wrap gap-5 text-sm font-medium text-muted-foreground">
+                <span className="inline-flex items-center gap-2"><CalendarDays className="size-4 text-primary" />{formatDate(blog.publishedDate)}</span>
+                <span className="inline-flex items-center gap-2"><Clock3 className="size-4 text-primary" />{readingTime} min read</span>
+              </div>
             </div>
-            <h1 className="text-balance text-4xl font-semibold leading-[1.06] text-foreground sm:text-5xl lg:text-7xl">{blog.title}</h1>
-            {blog.excerpt ? <p className="mt-7 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl sm:leading-9">{blog.excerpt}</p> : null}
-            <div className="mt-7 flex flex-wrap gap-5 text-sm font-medium text-muted-foreground">
-              <span className="inline-flex items-center gap-2"><CalendarDays className="size-4 text-primary" />{formatDate(blog.publishedDate)}</span>
-              <span className="inline-flex items-center gap-2"><Clock3 className="size-4 text-primary" />{readingTime} min read</span>
+            <div className="w-fit rounded-2xl border border-white/12 bg-[linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.025))] p-4 shadow-[0_18px_55px_rgba(0,0,0,.22)] backdrop-blur-xl lg:mt-1">
+              <p className="mb-3 text-[10px] font-bold uppercase tracking-[.2em] text-muted-foreground">Share article</p>
+              <ShareButtons compact title={blog.title} />
             </div>
           </div>
         </Reveal>
       </header>
 
-      <Reveal className="container pb-10" delay={0.06}>
+      <Reveal className="container pb-12" delay={0.06}>
         <div className="group overflow-hidden rounded-2xl border border-white/12 bg-white/[.04] shadow-[0_30px_110px_rgba(0,0,0,.4)]">
           {coverUrl ? <Image alt={cover?.alt || blog.title} className="h-auto max-h-[760px] w-full object-contain transition duration-700 group-hover:scale-[1.008]" height={cover?.height || 900} priority sizes="100vw" src={coverUrl} width={cover?.width || 1600} /> : <div className="aspect-[16/8] bg-aurora" />}
         </div>
@@ -85,9 +90,9 @@ export default async function BlogDetailPage({ params }: PageProps) {
 
       <section className="container mb-10"><div className="glass flex flex-col justify-between gap-5 rounded-2xl p-5 sm:flex-row sm:items-center sm:p-6"><div><p className="font-semibold text-foreground">Worth sharing?</p><p className="mt-1 text-sm text-muted-foreground">Pass this article along to someone who might find it useful.</p></div><ShareButtons title={blog.title} /></div></section>
 
-      <section className="container grid gap-7 lg:grid-cols-[250px_minmax(0,820px)] lg:justify-center lg:items-start">
+      <section className="container grid min-w-0 gap-6 lg:grid-cols-[minmax(190px,220px)_minmax(0,1fr)] lg:items-start xl:gap-9">
         <TableOfContents headings={headings} />
-        <Reveal><div className="rounded-2xl border border-white/10 bg-[rgba(13,18,27,.62)] px-5 py-3 shadow-[0_30px_100px_rgba(0,0,0,.2)] sm:px-9 sm:py-6"><RichText content={blog.content} headings={headings} /></div></Reveal>
+        <Reveal className="min-w-0"><div className="min-w-0 rounded-2xl border border-white/10 bg-[rgba(13,18,27,.62)] px-5 py-4 shadow-[0_30px_100px_rgba(0,0,0,.2)] sm:px-9 sm:py-7 lg:px-12 xl:px-14"><div className="mx-auto max-w-[78ch]"><RichText content={blog.content} headings={headings} /></div></div></Reveal>
       </section>
 
       <section className="container mt-14 max-w-4xl">
