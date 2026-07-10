@@ -45,17 +45,17 @@ export function BlogCard({ blog }: { blog: Blog }) {
           {blog.featured ? <Badge className="absolute left-4 top-4 rounded-full border-primary/40 bg-background/85 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[.16em] text-primary backdrop-blur"><Sparkles className="mr-1.5 size-3" />Featured</Badge> : null}
         </div>
         <div className="flex flex-1 flex-col px-3 pb-3 pt-6 sm:px-4 sm:pb-4 sm:pt-7">
-          <div className="flex flex-wrap items-center gap-2 text-xs font-medium text-muted-foreground">
-            {blog.publishedDate ? <span className="inline-flex items-center gap-1.5"><CalendarDays className="size-3.5 text-primary" />{formatDate(blog.publishedDate)}</span> : null}
-            <span className="text-white/20">•</span><span className="inline-flex items-center gap-1.5"><Clock3 className="size-3.5 text-primary" />{readingTime} min read</span>
-            <Badge className="ml-auto rounded-full border-secondary/25 bg-secondary/10 px-2.5 py-1 text-[10px] uppercase tracking-[.15em] text-secondary">{category}</Badge>
+          <div className="flex min-w-0 flex-nowrap items-center gap-2 text-[11px] font-medium text-muted-foreground">
+            {blog.publishedDate ? <span className="inline-flex shrink-0 items-center gap-1.5"><CalendarDays className="size-3.5 text-primary" />{formatDate(blog.publishedDate)}</span> : null}
+            <span className="inline-flex shrink-0 items-center gap-1.5"><Clock3 className="size-3.5 text-primary" />{readingTime} min read</span>
+            <Badge className="ml-auto max-w-[48%] shrink truncate whitespace-nowrap rounded-full border-secondary/25 bg-secondary/10 px-2.5 py-1 text-[9px] uppercase tracking-[.1em] text-secondary" title={category}>{category}</Badge>
           </div>
           <h3 className="mt-5 line-clamp-2 min-h-[3.8rem] text-balance text-[1.45rem] font-semibold leading-[1.3] tracking-[-0.015em] text-foreground transition group-hover:text-primary">{blog.title}</h3>
           {blog.excerpt ? (
             <p className="mt-4 line-clamp-3 text-[.925rem] leading-7 text-muted-foreground">{blog.excerpt}</p>
           ) : null}
           {tags.length ? (
-            <div className="mt-5 flex flex-wrap gap-2">
+            <div className="mb-6 mt-6 flex flex-wrap gap-2">
               {tags.map((tag) => (
                 <Badge className="rounded-full border-white/12 bg-white/[.06] px-3 py-1.5 text-[11px] transition hover:border-primary/35 hover:bg-primary/10 hover:text-primary" key={tag}>{tag}</Badge>
               ))}

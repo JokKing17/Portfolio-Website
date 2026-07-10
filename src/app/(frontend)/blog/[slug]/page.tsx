@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ArrowLeft, ArrowRight, CalendarDays, Clock3, FolderOpen, Mail, Sparkles } from 'lucide-react'
 import { Reveal } from '@/components/animations/Reveal'
-import { ReadingProgress, ShareButtons, TableOfContents } from '@/components/blog/ArticleTools'
+import { ArticleSectionNav, ReadingProgress, ShareButtons } from '@/components/blog/ArticleTools'
 import { BlogCard } from '@/components/cards/BlogCard'
 import { SocialIcon } from '@/components/ui/SocialIcon'
 import { RichText } from '@/components/ui/RichText'
@@ -90,9 +90,10 @@ export default async function BlogDetailPage({ params }: PageProps) {
 
       <section className="container mb-10"><div className="glass flex flex-col justify-between gap-5 rounded-2xl p-5 sm:flex-row sm:items-center sm:p-6"><div><p className="font-semibold text-foreground">Worth sharing?</p><p className="mt-1 text-sm text-muted-foreground">Pass this article along to someone who might find it useful.</p></div><ShareButtons title={blog.title} /></div></section>
 
-      <section className="container grid min-w-0 gap-6 lg:grid-cols-[minmax(190px,220px)_minmax(0,1fr)] lg:items-start xl:gap-9">
-        <TableOfContents headings={headings} />
-        <Reveal className="min-w-0"><div className="min-w-0 rounded-2xl border border-white/10 bg-[rgba(13,18,27,.62)] px-5 py-4 shadow-[0_30px_100px_rgba(0,0,0,.2)] sm:px-9 sm:py-7 lg:px-12 xl:px-14"><div className="mx-auto max-w-[78ch]"><RichText content={blog.content} headings={headings} /></div></div></Reveal>
+      <ArticleSectionNav headings={headings} />
+
+      <section className="container min-w-0 pt-8 sm:pt-10" id="article-body">
+        <div className="mx-auto min-w-0 max-w-[920px] rounded-2xl border border-white/10 bg-[rgba(13,18,27,.62)] px-5 py-4 shadow-[0_30px_100px_rgba(0,0,0,.2)] sm:px-9 sm:py-7 lg:px-12 xl:px-14"><RichText content={blog.content} headings={headings} /></div>
       </section>
 
       <section className="container mt-14 max-w-4xl">

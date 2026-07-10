@@ -30,7 +30,7 @@ export function TestimonialsSection({
       {!testimonials.length ? (
         <EmptyState title="No testimonials published yet." />
       ) : (
-        <div className="testimonial-marquee mx-auto max-w-[1120px] overflow-hidden py-2">
+        <div className="testimonial-marquee w-full overflow-hidden py-2">
           <div
             className="testimonial-marquee-track"
             style={{ animationDelay: '4.5s', animationDuration: `${loopDuration}s` }}

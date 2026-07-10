@@ -44,11 +44,11 @@ function renderNode(node: LexicalNode, key: React.Key, headings: Heading[] = [])
     }
     case 'list':
       return node.listType === 'number' ? (
-        <ol className="my-7 list-decimal space-y-3 pl-7 marker:font-semibold marker:text-primary" key={key}>
+        <ol className="my-8 list-decimal space-y-3.5 pl-7 leading-8 text-muted-foreground marker:font-semibold marker:text-primary" key={key}>
           {renderChildren(node.children)}
         </ol>
       ) : (
-        <ul className="my-7 list-disc space-y-3 pl-7 marker:text-primary" key={key}>
+        <ul className="my-8 list-disc space-y-3.5 pl-7 leading-8 text-muted-foreground marker:text-primary" key={key}>
           {renderChildren(node.children)}
         </ul>
       )
@@ -56,7 +56,7 @@ function renderNode(node: LexicalNode, key: React.Key, headings: Heading[] = [])
       return <li key={key}>{renderChildren(node.children)}</li>
     case 'quote':
       return (
-        <blockquote className="my-8 rounded-r-xl border-l-4 border-primary bg-white/[.045] px-6 py-5 italic leading-8 text-muted-foreground" key={key}>
+        <blockquote className="my-10 rounded-r-xl border-l-4 border-primary bg-white/[.045] px-6 py-6 italic leading-8 text-muted-foreground shadow-[inset_0_1px_0_rgba(255,255,255,.04)]" key={key}>
           {renderChildren(node.children)}
         </blockquote>
       )
@@ -77,7 +77,7 @@ function renderNode(node: LexicalNode, key: React.Key, headings: Heading[] = [])
     case 'paragraph':
     default:
       return (
-        <p className="my-6 text-[1.04rem] leading-8 text-muted-foreground sm:text-[1.08rem] sm:leading-9" key={key}>
+        <p className="my-7 text-[1.04rem] leading-8 text-muted-foreground sm:text-[1.08rem] sm:leading-9" key={key}>
           {renderChildren(node.children)}
         </p>
       )

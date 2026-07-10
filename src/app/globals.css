@@ -151,7 +151,7 @@ a {
 }
 
 .article-content pre {
-  margin-block: 2rem;
+  margin-block: 2.5rem;
   overflow-x: auto;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 0.9rem;
@@ -161,7 +161,7 @@ a {
 }
 
 .article-content table { width: 100%; border-collapse: separate; border-spacing: 0; }
-.article-content table { display: block; overflow-x: auto; margin-block: 2rem; border: 1px solid rgba(255,255,255,.12); border-radius: .9rem; }
+.article-content table { display: block; overflow-x: auto; margin-block: 2.5rem; border: 1px solid rgba(255,255,255,.12); border-radius: .9rem; }
 .article-content th, .article-content td { min-width: 9rem; border-bottom: 1px solid rgba(255,255,255,.1); padding: .85rem 1rem; text-align: left; }
 .article-content th { background: rgba(0,214,201,.08); color: hsl(var(--foreground)); }
 
