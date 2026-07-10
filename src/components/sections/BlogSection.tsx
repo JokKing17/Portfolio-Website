@@ -33,7 +33,7 @@ export function BlogSection({
       {!blogs.length ? (
         <EmptyState title="No blog posts published yet." />
       ) : (
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {blogs.map((blog) => (
             <BlogCard blog={blog} key={blog.id} />
           ))}

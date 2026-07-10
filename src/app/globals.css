@@ -133,6 +133,38 @@ a {
   box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--ring));
 }
 
+.article-h2 {
+  position: relative;
+  padding-bottom: 0.8rem;
+}
+
+.article-h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 3.5rem;
+  height: 2px;
+  border-radius: 999px;
+  background: hsl(var(--primary));
+  box-shadow: 0 0 14px rgba(0, 214, 201, 0.5);
+}
+
+.article-content pre {
+  margin-block: 2rem;
+  overflow-x: auto;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.9rem;
+  background: rgba(4, 8, 14, 0.9);
+  padding: 1.25rem;
+  line-height: 1.7;
+}
+
+.article-content table { width: 100%; border-collapse: separate; border-spacing: 0; }
+.article-content table { display: block; overflow-x: auto; margin-block: 2rem; border: 1px solid rgba(255,255,255,.12); border-radius: .9rem; }
+.article-content th, .article-content td { min-width: 9rem; border-bottom: 1px solid rgba(255,255,255,.1); padding: .85rem 1rem; text-align: left; }
+.article-content th { background: rgba(0,214,201,.08); color: hsl(var(--foreground)); }
+
 @keyframes testimonial-star-shimmer {
   0%, 100% {
     opacity: 1;

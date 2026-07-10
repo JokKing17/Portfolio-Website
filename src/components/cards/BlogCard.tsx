@@ -2,33 +2,36 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { FileText } from 'lucide-react'
+import { ArrowUpRight, CalendarDays, Clock3, FileText, Sparkles } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { Badge } from '@/components/ui/badge'
 import { formatDate, getMedia, getMediaUrl, textArray } from '@/lib/utils'
 import type { Blog } from '@/types/payload-types'
+import { getReadingTime } from '@/lib/blog'
 
 export function BlogCard({ blog }: { blog: Blog }) {
   const image = getMedia(blog.coverImage)
   const imageUrl = getMediaUrl(blog.coverImage)
   const tags = textArray(blog.tags).slice(0, 3)
   const href = blog.slug ? `/blog/${blog.slug}` : '#'
+  const readingTime = getReadingTime(blog.content)
+  const category = tags[0] || 'Article'
 
   return (
     <motion.article
-      className="group h-full overflow-hidden rounded-lg border border-white/12 bg-white/[0.035] transition hover:border-secondary/40"
+      className="group h-full rounded-2xl bg-gradient-to-br from-primary/35 via-white/[0.12] to-accent/20 p-px shadow-[0_18px_60px_rgba(0,0,0,.3)] transition hover:shadow-[0_28px_80px_rgba(0,214,201,.12)]"
       initial={{ opacity: 0, y: 22 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.25 }}
       whileHover={{ y: -6 }}
-      transition={{ duration: 0.42 }}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
     >
-      <Link className="block h-full" href={href} aria-disabled={!blog.slug}>
-        <div className="relative aspect-[16/9] overflow-hidden bg-white/[0.04]">
+      <Link className="flex h-full min-h-[540px] flex-col overflow-hidden rounded-[15px] border border-white/[.14] bg-[rgba(13,18,27,.95)] p-2.5 backdrop-blur-md transition group-hover:border-primary/35" href={href} aria-disabled={!blog.slug}>
+        <div className="relative aspect-[16/10] overflow-hidden rounded-xl border border-white/10 bg-white/[0.04]">
           {imageUrl ? (
             <Image
               alt={image?.alt || blog.title || 'Blog cover'}
-              className="object-cover transition duration-700 group-hover:scale-105"
+              className="object-contain p-1 transition duration-700 group-hover:scale-[1.035]"
               fill
               sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
               src={imageUrl}
@@ -38,23 +41,27 @@ export function BlogCard({ blog }: { blog: Blog }) {
               <FileText className="size-9 text-secondary" />
             </div>
           )}
+          <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
+          {blog.featured ? <Badge className="absolute left-4 top-4 rounded-full border-primary/40 bg-background/85 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[.16em] text-primary backdrop-blur"><Sparkles className="mr-1.5 size-3" />Featured</Badge> : null}
         </div>
-        <div className="space-y-4 p-5">
-          <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-            {blog.publishedDate ? <span>{formatDate(blog.publishedDate)}</span> : null}
-            {blog.featured ? <Badge className="border-secondary/35 text-secondary">Featured</Badge> : null}
+        <div className="flex flex-1 flex-col p-3 pt-5 sm:p-4 sm:pt-6">
+          <div className="flex flex-wrap items-center gap-2 text-xs font-medium text-muted-foreground">
+            {blog.publishedDate ? <span className="inline-flex items-center gap-1.5"><CalendarDays className="size-3.5 text-primary" />{formatDate(blog.publishedDate)}</span> : null}
+            <span className="text-white/20">•</span><span className="inline-flex items-center gap-1.5"><Clock3 className="size-3.5 text-primary" />{readingTime} min read</span>
+            <Badge className="ml-auto rounded-full border-secondary/25 bg-secondary/10 px-2.5 py-1 text-[10px] uppercase tracking-[.15em] text-secondary">{category}</Badge>
           </div>
-          <h3 className="text-xl font-semibold text-foreground">{blog.title}</h3>
+          <h3 className="mt-5 line-clamp-2 min-h-[3.65rem] text-balance text-[1.4rem] font-semibold leading-[1.28] text-foreground transition group-hover:text-primary">{blog.title}</h3>
           {blog.excerpt ? (
-            <p className="line-clamp-3 text-sm leading-6 text-muted-foreground">{blog.excerpt}</p>
+            <p className="mt-4 line-clamp-3 text-sm leading-7 text-muted-foreground">{blog.excerpt}</p>
           ) : null}
           {tags.length ? (
-            <div className="flex flex-wrap gap-2">
+            <div className="mt-5 flex flex-wrap gap-2">
               {tags.map((tag) => (
-                <Badge key={tag}>{tag}</Badge>
+                <Badge className="rounded-full border-white/12 bg-white/[.06] px-3 py-1.5 text-[11px] transition hover:border-primary/35 hover:bg-primary/10 hover:text-primary" key={tag}>{tag}</Badge>
               ))}
             </div>
           ) : null}
+          <div className="mt-auto flex items-center justify-between border-t border-white/10 pt-5 text-sm font-semibold"><span className="inline-flex items-center gap-2 text-foreground transition group-hover:text-primary">Read Article <ArrowUpRight className="size-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" /></span><span className="text-xs font-medium text-muted-foreground">{readingTime} min read</span></div>
         </div>
       </Link>
     </motion.article>
