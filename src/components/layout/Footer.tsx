@@ -29,6 +29,9 @@ export function Footer({ contactInfo, settings }: FooterProps) {
   const whatsappLink = socialLinks.find((link) =>
     link.platform.toLowerCase().includes('whatsapp')
   )
+  const locationUrl = contactInfo?.location
+    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(contactInfo.location)}`
+    : null
   const hasQuickContact = Boolean(contactInfo?.email || contactInfo?.location || whatsappLink?.url)
 
   return (
@@ -83,11 +86,11 @@ export function Footer({ contactInfo, settings }: FooterProps) {
                     WhatsApp
                   </Link>
                 ) : null}
-                {contactInfo?.location ? (
-                  <p className="flex items-start gap-2.5 text-sm leading-6 text-muted-foreground">
+                {contactInfo?.location && locationUrl ? (
+                  <Link className="flex items-start gap-2.5 text-sm leading-6 text-muted-foreground transition duration-300 hover:text-primary" href={locationUrl} rel="noreferrer" target="_blank">
                     <MapPin className="mt-1 size-4 shrink-0 text-primary" />
                     {contactInfo.location}
-                  </p>
+                  </Link>
                 ) : null}
               </div>
             </div>

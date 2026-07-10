@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { CheckCircle2, Clock3, LoaderCircle, Mail, MapPin, Phone, Send } from 'lucide-react'
+import { CheckCircle2, Clock3, LoaderCircle, Mail, MapPin, MessageCircle, Send } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -30,6 +30,12 @@ export function ContactSection({
   heading?: string
 }) {
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const whatsappLink = contactInfo?.socialLinks?.find((link) =>
+    link.platform.toLowerCase().includes('whatsapp')
+  )
+  const locationUrl = contactInfo?.location
+    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(contactInfo.location)}`
+    : null
   const {
     formState: { errors, isSubmitting },
     handleSubmit,
@@ -76,21 +82,21 @@ export function ContactSection({
                 <span className="truncate text-sm sm:text-base">{contactInfo.email}</span>
               </Link>
             ) : null}
-            {contactInfo?.phone ? (
-              <Link className="group flex items-center gap-3 rounded-xl px-2 py-2 text-muted-foreground transition duration-300 hover:bg-white/[0.04] hover:text-primary" href={`tel:${contactInfo.phone}`}>
+            {whatsappLink?.url ? (
+              <Link className="group flex items-center gap-3 rounded-xl px-2 py-2 text-muted-foreground transition duration-300 hover:bg-white/[0.04] hover:text-primary" href={whatsappLink.url} rel="noreferrer" target="_blank">
                 <span className="grid size-9 shrink-0 place-items-center rounded-lg border border-primary/20 bg-primary/[0.08] text-primary transition group-hover:border-primary/35 group-hover:bg-primary/[0.12]">
-                  <Phone className="size-4" />
+                  <MessageCircle className="size-4" />
                 </span>
-                <span className="text-sm sm:text-base">{contactInfo.phone}</span>
+                <span className="text-sm sm:text-base">{contactInfo?.phone || 'WhatsApp'}</span>
               </Link>
             ) : null}
-            {contactInfo?.location ? (
-              <p className="flex items-center gap-3 px-2 py-2 text-muted-foreground">
+            {contactInfo?.location && locationUrl ? (
+              <Link className="group flex items-center gap-3 rounded-xl px-2 py-2 text-muted-foreground transition duration-300 hover:bg-white/[0.04] hover:text-primary" href={locationUrl} rel="noreferrer" target="_blank">
                 <span className="grid size-9 shrink-0 place-items-center rounded-lg border border-primary/20 bg-primary/[0.08] text-primary">
                   <MapPin className="size-4" />
                 </span>
                 <span className="text-sm sm:text-base">{contactInfo.location}</span>
-              </p>
+              </Link>
             ) : null}
           </div>
 
