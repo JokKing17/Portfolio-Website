@@ -136,3 +136,47 @@ a {
     animation: testimonial-star-shimmer 700ms ease-in-out 1;
   }
 }
+
+@keyframes testimonial-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.testimonial-marquee-track {
+  display: flex;
+  width: max-content;
+  animation-name: testimonial-marquee;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-fill-mode: backwards;
+  will-change: transform;
+}
+
+.testimonial-marquee-group {
+  display: flex;
+  flex-shrink: 0;
+  gap: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.testimonial-marquee:hover .testimonial-marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .testimonial-marquee-track {
+    animation: none;
+  }
+
+  .testimonial-marquee {
+    overflow-x: auto;
+  }
+
+  .testimonial-marquee-group[aria-hidden="true"] {
+    display: none;
+  }
+}

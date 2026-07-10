@@ -12,17 +12,14 @@ export function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   const rating = Math.min(Math.max(testimonial.rating || 5, 1), 5)
   return (
     <motion.article
-      className="group h-full rounded-2xl bg-gradient-to-br from-primary/30 via-white/[0.1] to-accent/20 p-px shadow-[0_18px_60px_rgba(0,0,0,0.3)] transition duration-300 hover:shadow-[0_28px_90px_rgba(0,214,201,0.15)]"
-      initial={{ opacity: 0, y: 22 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.25 }}
-      whileHover={{ y: -6 }}
+      className="group h-full rounded-2xl border border-white/[0.14] bg-[rgba(13,18,27,0.96)] shadow-[0_16px_45px_rgba(0,0,0,0.24)] transition duration-300 hover:border-primary/30 hover:shadow-[0_20px_52px_rgba(0,0,0,0.3)]"
+      whileHover={{ y: -4 }}
       transition={{ duration: 0.3, ease: 'easeOut' }}
     >
-      <div className="relative flex h-full min-h-[430px] flex-col overflow-hidden rounded-[15px] border border-white/[0.14] bg-[rgba(13,18,27,0.9)] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_24px_70px_rgba(0,0,0,0.24)] backdrop-blur-md transition duration-300 group-hover:border-primary/40 group-hover:bg-[rgba(16,23,33,0.94)] sm:min-h-[460px] sm:p-8">
-        <div className="mb-7 flex items-center justify-between gap-4">
-          <span className="grid size-14 place-items-center rounded-2xl border border-primary/25 bg-primary/[0.12] text-primary shadow-[0_0_24px_rgba(0,214,201,0.12)] transition duration-300 group-hover:scale-105 group-hover:border-primary/45 group-hover:bg-primary/[0.16]">
-            <Quote className="size-7" strokeWidth={1.7} />
+      <div className="relative flex h-full min-h-[350px] flex-col overflow-hidden rounded-2xl p-6 sm:min-h-[370px] sm:p-8">
+        <div className="mb-6 flex items-center justify-between gap-4">
+          <span className="grid size-12 place-items-center rounded-xl border border-primary/25 bg-primary/[0.1] text-primary transition duration-300 group-hover:scale-[1.03] group-hover:border-primary/35">
+            <Quote className="size-6" strokeWidth={1.7} />
           </span>
           <div
             aria-label={`${rating} out of 5 stars`}
@@ -38,18 +35,18 @@ export function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
           </div>
         </div>
 
-        <blockquote className="line-clamp-[10] text-[1.05rem] leading-[1.95] text-foreground/90 sm:text-[1.1rem] sm:leading-[2.05]">
+        <blockquote className="line-clamp-7 text-[1.025rem] leading-[1.9] text-foreground/90 sm:text-[1.075rem] sm:leading-[1.95]">
           &ldquo;{testimonial.message}&rdquo;
         </blockquote>
 
-        <div className="mt-auto flex items-center gap-4 border-t border-white/[0.1] pt-6 sm:gap-5 sm:pt-7">
-          <div className="relative grid size-16 shrink-0 place-items-center overflow-hidden rounded-full border border-primary/30 bg-white/[0.06] text-sm font-semibold text-primary shadow-[0_0_24px_rgba(0,214,201,0.1),0_10px_30px_rgba(0,0,0,0.2)] sm:size-[68px]">
+        <div className="mt-auto flex items-center gap-4 border-t border-white/[0.1] pt-5 sm:pt-6">
+          <div className="relative grid size-14 shrink-0 place-items-center overflow-hidden rounded-full border border-primary/25 bg-white/[0.06] text-sm font-semibold text-primary shadow-[0_8px_24px_rgba(0,0,0,0.2)] sm:size-16">
             {imageUrl ? (
               <Image
                 alt={image?.alt || testimonial.name || 'Testimonial author'}
                 className="object-cover"
                 fill
-                sizes="68px"
+                sizes="64px"
                 src={imageUrl}
               />
             ) : (
