@@ -9,6 +9,7 @@ import { AnimatedText } from '@/components/animations/AnimatedText'
 import { MagneticButton } from '@/components/animations/MagneticButton'
 import { Button } from '@/components/ui/button'
 import { EmptyState } from '@/components/ui/EmptyState'
+import { SocialIcon } from '@/components/ui/SocialIcon'
 import { getMedia, getMediaUrl } from '@/lib/utils'
 import type { Hero, SiteSetting } from '@/types/payload-types'
 
@@ -129,6 +130,7 @@ export function HeroSection({ hero, settings }: HeroSectionProps) {
                     rel="noreferrer"
                     target="_blank"
                   >
+                    <SocialIcon icon={link.icon} platform={link.platform} />
                     {link.platform}
                   </Link>
                 ) : null

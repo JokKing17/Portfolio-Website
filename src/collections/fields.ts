@@ -44,7 +44,8 @@ export const socialLinks: Field = {
       name: 'icon',
       type: 'text',
       admin: {
-        description: 'Optional Lucide icon name or short label.'
+        description:
+          'Optional brand icon override, for example SiGithub or SiFacebook. Leave blank to use the Platform name automatically.'
       }
     }
   ]

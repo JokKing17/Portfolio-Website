@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { ExternalLink } from 'lucide-react'
+import { SocialIcon } from '@/components/ui/SocialIcon'
 import { getMediaUrl } from '@/lib/utils'
 import type { ContactInfo, SiteSetting } from '@/types/payload-types'
 
@@ -41,8 +41,8 @@ export function Footer({ contactInfo, settings }: FooterProps) {
                 rel="noreferrer"
                 target="_blank"
               >
+                <SocialIcon icon={link.icon} platform={link.platform} />
                 {link.platform}
-                <ExternalLink className="size-3.5" />
               </Link>
             ) : null
           )}
