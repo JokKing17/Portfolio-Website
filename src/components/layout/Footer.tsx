@@ -16,10 +16,10 @@ export function Footer({ contactInfo, settings }: FooterProps) {
   const socialLinks = contactInfo?.socialLinks || []
 
   return (
-    <footer className="border-t border-white/10 bg-background/70 py-10">
-      <div className="container flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+    <footer className="border-t border-white/10 bg-background/75 py-11 sm:py-12">
+      <div className="container flex flex-col gap-8 md:flex-row md:items-center md:justify-between md:gap-12">
         <div className="max-w-xl">
-          <Link className="mb-3 inline-flex items-center gap-3" href="/">
+          <Link className="mb-3 inline-flex items-center gap-3 transition duration-300 hover:text-primary" href="/">
             {logoUrl ? (
               <Image alt={siteName} className="rounded-md object-cover" height={36} src={logoUrl} width={36} />
             ) : (
@@ -27,15 +27,15 @@ export function Footer({ contactInfo, settings }: FooterProps) {
                 {siteName.slice(0, 2).toUpperCase()}
               </span>
             )}
-            <span className="font-semibold">{siteName}</span>
+            <span className="font-semibold tracking-wide">{siteName}</span>
           </Link>
           <p className="text-sm leading-6 text-muted-foreground">{footerText}</p>
         </div>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap items-center gap-2.5">
           {socialLinks.map((link) =>
             link.url ? (
               <Link
-                className="inline-flex items-center gap-2 rounded-md border border-white/12 bg-white/[0.04] px-3 py-2 text-sm text-muted-foreground transition hover:border-primary/40 hover:text-primary"
+                className="inline-flex items-center gap-2 rounded-lg border border-white/[0.13] bg-white/[0.045] px-3.5 py-2 text-sm text-muted-foreground transition duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary/[0.08] hover:text-primary"
                 href={link.url}
                 key={`${link.platform}-${link.url}`}
                 rel="noreferrer"

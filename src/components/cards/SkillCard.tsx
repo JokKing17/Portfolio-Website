@@ -60,15 +60,15 @@ export function SkillCard({ skill }: { skill: Skill }) {
 
   return (
     <motion.article
-      className="glass h-full rounded-lg p-5 transition duration-300 hover:border-primary/30 hover:shadow-glow"
+      className="polished-card group flex h-full flex-col rounded-2xl p-6"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.25 }}
-      whileHover={{ y: -6 }}
-      transition={{ duration: 0.42 }}
+      whileHover={{ y: -5 }}
+      transition={{ duration: 0.35, ease: 'easeOut' }}
     >
-      <div className="mb-5 flex items-center gap-3">
-        <div className="grid size-11 place-items-center rounded-md border border-white/12 bg-white/[0.04]">
+      <div className="mb-5 flex items-center gap-4">
+        <div className="grid size-12 shrink-0 place-items-center rounded-xl border border-primary/20 bg-primary/[0.08] transition duration-300 group-hover:border-primary/35 group-hover:bg-primary/[0.12]">
           {iconUrl && !iconFailed ? (
             <Image
               alt={icon?.alt || skill.name || 'Skill icon'}
@@ -83,17 +83,17 @@ export function SkillCard({ skill }: { skill: Skill }) {
             <SkillIcon className="size-6 text-primary drop-shadow-[0_0_10px_rgba(0,214,201,0.55)]" strokeWidth={1.8} />
           )}
         </div>
-        <div>
-          <h3 className="font-semibold text-foreground">{skill.name}</h3>
-          <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+        <div className="min-w-0">
+          <h3 className="truncate font-semibold leading-6 text-foreground">{skill.name}</h3>
+          <p className="mt-0.5 truncate text-[0.68rem] font-medium uppercase tracking-[0.18em] text-primary/80">
             {skill.category}
           </p>
         </div>
       </div>
       {skill.description ? (
-        <p className="mb-5 text-sm leading-6 text-muted-foreground">{skill.description}</p>
+        <p className="mb-6 line-clamp-3 text-sm leading-6 text-muted-foreground">{skill.description}</p>
       ) : null}
-      <div className="h-2 overflow-hidden rounded-full bg-white/[0.06]">
+      <div className="mt-auto h-1.5 overflow-hidden rounded-full bg-white/[0.07]">
         <motion.div
           className="h-full rounded-full bg-gradient-to-r from-primary via-secondary to-accent"
           initial={{ width: 0 }}

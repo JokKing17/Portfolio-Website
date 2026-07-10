@@ -36,15 +36,15 @@ export function AchievementsSection({
 
             return (
               <motion.article
-                className="group h-full rounded-2xl bg-gradient-to-br from-primary/35 via-white/[0.12] to-secondary/25 p-px shadow-[0_18px_60px_rgba(0,0,0,0.32)] transition duration-300 hover:shadow-[0_26px_90px_rgba(0,214,201,0.16)]"
+                className="group h-full rounded-2xl bg-gradient-to-br from-primary/35 via-white/[0.12] to-secondary/25 p-px shadow-[0_18px_56px_rgba(0,0,0,0.3)] transition duration-300 hover:shadow-[0_26px_80px_rgba(0,214,201,0.13)]"
                 initial={{ opacity: 0, y: 24 }}
                 key={achievement.id}
                 transition={{ duration: 0.3, ease: 'easeOut' }}
                 viewport={{ amount: 0.25, once: true }}
-                whileHover={{ y: -6 }}
+                whileHover={{ y: -5 }}
                 whileInView={{ opacity: 1, y: 0 }}
               >
-                <div className="relative flex h-full min-h-[540px] flex-col overflow-hidden rounded-[15px] border border-white/[0.14] bg-[rgba(13,18,27,0.92)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_24px_70px_rgba(0,0,0,0.28)] backdrop-blur-md transition duration-300 group-hover:border-primary/35 group-hover:bg-[rgba(16,23,33,0.94)]">
+                <div className="relative flex h-full min-h-[540px] flex-col overflow-hidden rounded-[15px] border border-white/[0.14] bg-[rgba(13,18,27,0.95)] shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_24px_70px_rgba(0,0,0,0.26)] backdrop-blur-md transition duration-300 group-hover:border-primary/35 group-hover:bg-[rgba(16,23,33,0.97)]">
                   <Link
                     aria-label={`View ${achievement.title} achievement details`}
                     className="absolute inset-0 z-10"
@@ -76,7 +76,7 @@ export function AchievementsSection({
                     </span>
                   </div>
 
-                  <div className="flex flex-1 flex-col p-5 pt-6 sm:p-6">
+                  <div className="flex flex-1 flex-col p-5 pt-6 sm:p-7">
                     <div className="flex flex-wrap items-center gap-2 text-xs font-medium text-muted-foreground">
                       {achievement.date ? (
                         <span className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.12] bg-white/[0.055] px-3 py-1.5">
@@ -117,7 +117,7 @@ export function AchievementsSection({
                     ) : null}
 
                     <div className="mt-auto pt-6">
-                      <span className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-primary/25 bg-primary/[0.12] px-4 py-2.5 text-sm font-semibold text-primary shadow-[0_0_24px_rgba(0,214,201,0.1)] transition duration-300 group-hover:border-primary/45 group-hover:bg-primary/[0.16] group-hover:shadow-[0_0_32px_rgba(0,214,201,0.16)]">
+                      <span className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-primary/28 bg-primary/[0.1] px-4 py-2.5 text-sm font-semibold text-primary transition duration-300 group-hover:border-primary/45 group-hover:bg-primary/[0.15] group-hover:shadow-[0_10px_28px_rgba(0,0,0,0.2)]">
                         View Details
                         <ArrowUpRight className="size-4 transition duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                       </span>

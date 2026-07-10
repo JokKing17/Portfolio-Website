@@ -24,14 +24,14 @@ export function ProjectCard({ project }: { project: Project }) {
 
   return (
     <motion.article
-      className="group h-full rounded-2xl bg-gradient-to-br from-primary/35 via-white/[0.12] to-accent/25 p-px shadow-[0_18px_60px_rgba(0,0,0,0.32)] transition duration-300 hover:shadow-[0_26px_90px_rgba(0,214,201,0.16)]"
+      className="group h-full rounded-2xl bg-gradient-to-br from-primary/35 via-white/[0.12] to-accent/25 p-px shadow-[0_18px_60px_rgba(0,0,0,0.3)] transition duration-300 hover:shadow-[0_26px_80px_rgba(0,214,201,0.13)]"
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.25 }}
       whileHover={{ y: -6 }}
       transition={{ duration: 0.3, ease: 'easeOut' }}
     >
-      <div className="relative flex h-full min-h-[520px] flex-col overflow-hidden rounded-[15px] border border-white/[0.14] bg-[rgba(13,18,27,0.92)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_24px_70px_rgba(0,0,0,0.28)] backdrop-blur-md transition duration-300 group-hover:border-primary/35 group-hover:bg-[rgba(16,23,33,0.94)]">
+      <div className="relative flex h-full min-h-[520px] flex-col overflow-hidden rounded-[15px] border border-white/[0.14] bg-[rgba(13,18,27,0.95)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_24px_70px_rgba(0,0,0,0.28)] backdrop-blur-md transition duration-300 group-hover:border-primary/38 group-hover:bg-[rgba(16,23,33,0.97)]">
         {project.slug ? (
           <Link
             aria-label={`View ${project.title || 'project'} case study`}
@@ -40,7 +40,7 @@ export function ProjectCard({ project }: { project: Project }) {
           />
         ) : null}
 
-        <div className="relative m-3 mb-0 aspect-[16/10] overflow-hidden rounded-xl border border-white/[0.12] bg-[radial-gradient(circle_at_top_left,rgba(0,214,201,0.16),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.075),rgba(255,255,255,0.025))] shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]">
+        <div className="relative m-2.5 mb-0 aspect-[16/10] overflow-hidden rounded-xl border border-white/[0.12] bg-[radial-gradient(circle_at_top_left,rgba(0,214,201,0.16),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.075),rgba(255,255,255,0.025))] shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]">
           {imageUrl ? (
             <Image
               alt={image?.alt || project.title || 'Project cover'}
@@ -56,14 +56,14 @@ export function ProjectCard({ project }: { project: Project }) {
           )}
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background/80 via-background/20 to-transparent" />
           {project.featured ? (
-            <Badge className="absolute left-4 top-4 rounded-full border-primary/35 bg-background/70 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-primary shadow-[0_0_26px_rgba(0,214,201,0.2)] backdrop-blur-md">
+            <Badge className="absolute left-4 top-4 rounded-full border-primary/40 bg-background/85 px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.17em] text-primary shadow-[0_8px_24px_rgba(0,0,0,0.28)] backdrop-blur-md">
               <Sparkles className="mr-1.5 size-3" />
               Featured
             </Badge>
           ) : null}
         </div>
 
-        <div className="flex flex-1 flex-col p-5 pt-6 sm:p-6">
+        <div className="flex flex-1 flex-col p-5 pt-6 sm:p-6 sm:pt-7">
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0">
               <Badge className="rounded-full border-secondary/30 bg-secondary/[0.12] px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-secondary shadow-[0_0_20px_rgba(255,183,77,0.12)]">
@@ -126,7 +126,7 @@ export function ProjectCard({ project }: { project: Project }) {
             <div className="mt-auto flex flex-wrap gap-2 pt-6">
               {visibleTech.map((item) => (
                 <Badge
-                  className="relative z-20 rounded-full border-white/[0.14] bg-white/[0.065] px-3 py-1.5 text-[11px] text-muted-foreground transition duration-300 hover:-translate-y-0.5 hover:border-primary/35 hover:bg-primary/[0.12] hover:text-primary"
+                  className="relative z-20 rounded-full border-white/[0.14] bg-white/[0.075] px-3 py-1.5 text-[11px] font-medium text-muted-foreground transition duration-300 hover:-translate-y-0.5 hover:border-primary/35 hover:bg-primary/[0.12] hover:text-primary"
                   key={item}
                 >
                   {item}

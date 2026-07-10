@@ -28,27 +28,27 @@ export function ServicesSection({ heading, services }: { heading?: string; servi
 
             return (
               <motion.article
-                className="group h-full rounded-2xl bg-gradient-to-br from-primary/30 via-white/[0.1] to-secondary/20 p-px shadow-[0_18px_60px_rgba(0,0,0,0.3)] transition duration-300 hover:shadow-[0_26px_90px_rgba(0,214,201,0.14)]"
+                className="group h-full rounded-2xl bg-gradient-to-br from-primary/30 via-white/[0.1] to-secondary/20 p-px shadow-[0_18px_56px_rgba(0,0,0,0.28)] transition duration-300 hover:shadow-[0_24px_76px_rgba(0,214,201,0.12)]"
                 initial={{ opacity: 0, y: 22 }}
                 key={service.id}
                 transition={{ duration: 0.3, ease: 'easeOut' }}
                 viewport={{ amount: 0.25, once: true }}
-                whileHover={{ y: -6 }}
+                whileHover={{ y: -5 }}
                 whileInView={{ opacity: 1, y: 0 }}
               >
-                <div className="relative flex h-full min-h-[380px] flex-col overflow-hidden rounded-[15px] border border-white/[0.14] bg-[rgba(13,18,27,0.9)] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_24px_70px_rgba(0,0,0,0.24)] backdrop-blur-md transition duration-300 group-hover:border-primary/35 group-hover:bg-[rgba(16,23,33,0.94)]">
+                <div className="relative flex h-full min-h-[380px] flex-col overflow-hidden rounded-[15px] border border-white/[0.14] bg-[rgba(13,18,27,0.95)] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_20px_60px_rgba(0,0,0,0.24)] backdrop-blur-md transition duration-300 group-hover:border-primary/35 group-hover:bg-[rgba(16,23,33,0.97)] sm:p-7">
                   <div className="mb-6 flex items-start justify-between gap-4">
-                    <div className="grid size-14 place-items-center rounded-2xl border border-primary/25 bg-primary/[0.12] text-primary shadow-[0_0_26px_rgba(0,214,201,0.14)] transition duration-300 group-hover:-translate-y-0.5 group-hover:border-primary/45 group-hover:bg-primary/[0.16]">
+                    <div className="grid size-16 place-items-center rounded-2xl border border-primary/25 bg-primary/[0.11] text-primary shadow-[0_0_24px_rgba(0,214,201,0.1)] transition duration-300 group-hover:-translate-y-0.5 group-hover:border-primary/45 group-hover:bg-primary/[0.15]">
                       {iconUrl ? (
                         <Image
                           alt={icon?.alt || service.title || 'Service icon'}
                           className="object-contain"
-                          height={30}
+                          height={32}
                           src={iconUrl}
-                          width={30}
+                          width={32}
                         />
                       ) : (
-                        <Gem className="size-6" />
+                        <Gem className="size-7" />
                       )}
                     </div>
                     <Badge className="rounded-full border-secondary/25 bg-secondary/[0.1] px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-secondary">
@@ -57,7 +57,7 @@ export function ServicesSection({ heading, services }: { heading?: string; servi
                     </Badge>
                   </div>
 
-                  <h3 className="text-[1.35rem] font-semibold leading-snug text-foreground transition duration-300 group-hover:text-primary">
+                  <h3 className="text-[1.4rem] font-semibold leading-snug text-foreground transition duration-300 group-hover:text-primary">
                     {service.title}
                   </h3>
                   {service.description ? (

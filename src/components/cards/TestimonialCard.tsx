@@ -12,13 +12,15 @@ export function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   const rating = Math.min(Math.max(testimonial.rating || 5, 1), 5)
   return (
     <motion.article
-      className="group h-full rounded-2xl border border-white/[0.14] bg-[rgba(13,18,27,0.96)] shadow-[0_16px_45px_rgba(0,0,0,0.24)] transition duration-300 hover:border-primary/30 hover:shadow-[0_20px_52px_rgba(0,0,0,0.3)]"
+      className="group h-full rounded-2xl border border-white/[0.14] bg-[rgba(13,18,27,0.96)] shadow-[inset_0_1px_0_rgba(255,255,255,0.055),0_16px_45px_rgba(0,0,0,0.24)] transition duration-300 hover:border-primary/30 hover:bg-[rgba(16,23,33,0.97)] hover:shadow-[0_20px_52px_rgba(0,0,0,0.3),0_0_28px_rgba(0,214,201,0.06)]"
       whileHover={{ y: -4 }}
       transition={{ duration: 0.3, ease: 'easeOut' }}
     >
       <div className="relative flex h-full min-h-[300px] flex-col overflow-hidden rounded-2xl p-6 sm:min-h-[320px] sm:p-8">
         <blockquote className="line-clamp-6 text-[1.025rem] leading-[1.9] text-foreground/90 sm:text-[1.075rem] sm:leading-[1.95]">
-          &ldquo;{testimonial.message}&rdquo;
+          <span className="mr-0.5 text-primary/75">&ldquo;</span>
+          {testimonial.message}
+          <span className="ml-0.5 text-primary/75">&rdquo;</span>
         </blockquote>
 
         <div className="mt-auto flex items-end justify-between gap-4 border-t border-white/[0.1] pt-5 sm:pt-6">
@@ -27,7 +29,7 @@ export function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
               {imageUrl ? (
                 <Image
                   alt={image?.alt || testimonial.name || 'Testimonial author'}
-                  className="object-cover"
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.035]"
                   fill
                   sizes="64px"
                   src={imageUrl}

@@ -32,11 +32,11 @@ export function SkillsSection({ heading, skills }: { heading?: string; skills: S
         <EmptyState title="No skills published yet." />
       ) : (
         <>
-          <div className="mb-8 flex flex-wrap gap-2">
+          <div className="mb-8 flex flex-wrap gap-2.5">
             {categories.map((category) => (
               <button
                 className={cn(
-                  'focus-ring rounded-md border border-white/12 px-4 py-2 text-sm text-muted-foreground transition',
+                  'focus-ring rounded-lg border border-white/[0.13] px-4 py-2 text-sm text-muted-foreground transition duration-300',
                   activeCategory === category
                     ? 'border-primary/50 bg-primary/12 text-primary'
                     : 'bg-white/[0.03] hover:border-primary/30 hover:text-foreground'
@@ -49,7 +49,7 @@ export function SkillsSection({ heading, skills }: { heading?: string; skills: S
               </button>
             ))}
           </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid auto-rows-fr gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {visibleSkills.map((skill) => (
               <SkillCard key={skill.id} skill={skill} />
             ))}

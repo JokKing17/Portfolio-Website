@@ -55,8 +55,8 @@ export function ContactSection({
         title={heading || 'Contact'}
         description={contactInfo?.availabilityStatus || undefined}
       />
-      <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
-        <div className="glass rounded-lg p-6">
+      <div className="grid items-stretch gap-6 lg:grid-cols-[0.8fr_1.2fr]">
+        <div className="polished-card flex h-full flex-col rounded-2xl p-6 sm:p-7">
           <div className="grid gap-4">
             {contactInfo?.email ? (
               <Link className="flex items-center gap-3 text-muted-foreground hover:text-primary" href={`mailto:${contactInfo.email}`}>
@@ -78,11 +78,11 @@ export function ContactSection({
             ) : null}
           </div>
           {contactInfo?.socialLinks?.length ? (
-            <div className="mt-7 flex flex-wrap gap-2">
+            <div className="mt-auto flex flex-wrap gap-2.5 pt-8">
               {contactInfo.socialLinks.map((link) =>
                 link.url ? (
                   <Link
-                    className="rounded-md border border-white/12 bg-white/[0.04] px-3 py-2 text-sm text-muted-foreground transition hover:border-primary/40 hover:text-primary"
+                    className="inline-flex items-center rounded-lg border border-white/[0.13] bg-white/[0.045] px-3.5 py-2 text-sm text-muted-foreground transition duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary/[0.08] hover:text-primary"
                     href={link.url}
                     key={`${link.platform}-${link.url}`}
                     rel="noreferrer"
@@ -95,8 +95,8 @@ export function ContactSection({
             </div>
           ) : null}
         </div>
-        <form className="glass grid gap-4 rounded-lg p-6" onSubmit={handleSubmit(onSubmit)}>
-          <div className="grid gap-4 sm:grid-cols-2">
+        <form className="polished-card grid h-full gap-5 rounded-2xl p-6 sm:p-7" onSubmit={handleSubmit(onSubmit)}>
+          <div className="grid gap-5 sm:grid-cols-2">
             <label className="grid gap-2 text-sm">
               Name
               <Input placeholder="Your name" {...register('name')} />

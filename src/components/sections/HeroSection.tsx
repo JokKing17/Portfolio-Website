@@ -44,10 +44,10 @@ export function HeroSection({ hero, settings }: HeroSectionProps) {
     <section className="relative isolate min-h-screen overflow-hidden pt-16">
       <HeroCanvas modelUrl={modelUrl} particles={settings?.themeSettings?.enableParticles !== false} />
       <div className="absolute inset-0 bg-gradient-to-b from-background/35 via-background/64 to-background" />
-      <div className="container relative z-10 grid min-h-[calc(100svh-4rem)] items-start gap-10 pt-10 pb-12 sm:pt-14 lg:grid-cols-[1.05fr_0.95fr] lg:pt-16">
-        <div className="max-w-4xl">
+      <div className="container relative z-10 grid min-h-[calc(100svh-4rem)] items-center gap-12 pb-14 pt-10 sm:pt-14 lg:grid-cols-[1.08fr_0.92fr] lg:gap-14 lg:py-16 xl:gap-20">
+        <div className="max-w-4xl lg:py-4">
           <motion.p
-            className="mb-5 text-sm font-semibold uppercase tracking-[0.28em] text-primary"
+            className="mb-5 text-sm font-bold uppercase tracking-[0.28em] text-primary"
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -59,7 +59,7 @@ export function HeroSection({ hero, settings }: HeroSectionProps) {
           </h1>
           {hero.headline ? (
             <motion.p
-              className="mt-6 max-w-3xl text-xl leading-8 text-muted-foreground sm:text-2xl"
+              className="mt-6 max-w-3xl text-xl leading-[1.45] text-muted-foreground sm:text-2xl"
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.55 }}
@@ -69,7 +69,7 @@ export function HeroSection({ hero, settings }: HeroSectionProps) {
           ) : null}
           {hero.shortBio ? (
             <motion.p
-              className="mt-5 max-w-2xl leading-7 text-muted-foreground"
+              className="mt-5 max-w-2xl leading-7 text-muted-foreground/95"
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.32, duration: 0.55 }}
@@ -78,7 +78,7 @@ export function HeroSection({ hero, settings }: HeroSectionProps) {
             </motion.p>
           ) : null}
           <motion.div
-            className="mt-8 flex flex-wrap items-center gap-3"
+            className="mt-9 flex flex-wrap items-center gap-3.5"
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.42, duration: 0.55 }}
@@ -116,7 +116,7 @@ export function HeroSection({ hero, settings }: HeroSectionProps) {
           </motion.div>
           {hero.socialLinks?.length ? (
             <motion.div
-              className="mt-7 flex flex-wrap gap-2"
+              className="mt-7 flex flex-wrap items-center gap-2.5"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.55, duration: 0.5 }}
@@ -124,7 +124,7 @@ export function HeroSection({ hero, settings }: HeroSectionProps) {
               {hero.socialLinks.map((link) =>
                 link.url ? (
                   <Link
-                    className="rounded-md border border-white/12 bg-white/[0.04] px-3 py-2 text-sm text-muted-foreground transition hover:border-primary/40 hover:text-primary"
+                    className="inline-flex items-center gap-2 rounded-lg border border-white/[0.13] bg-white/[0.045] px-3.5 py-2 text-sm text-muted-foreground transition duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary/[0.08] hover:text-primary"
                     href={link.url}
                     key={`${link.platform}-${link.url}`}
                     rel="noreferrer"
@@ -139,7 +139,7 @@ export function HeroSection({ hero, settings }: HeroSectionProps) {
           ) : null}
         </div>
         <motion.div
-          className="relative order-last mx-auto mt-2 aspect-square w-full max-w-[21rem] sm:max-w-[26rem] md:max-w-[30rem] lg:mt-0 lg:max-w-[34rem] xl:max-w-[38rem]"
+          className="relative order-last mx-auto aspect-square w-full max-w-[21rem] sm:max-w-[26rem] md:max-w-[30rem] lg:max-w-[33rem] xl:max-w-[37rem]"
           initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.25, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
