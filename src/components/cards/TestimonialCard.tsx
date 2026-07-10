@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { BadgeCheck, Quote, Star } from 'lucide-react'
+import { BadgeCheck, Star } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { cn, getMedia, getMediaUrl } from '@/lib/utils'
 import type { Testimonial } from '@/types/payload-types'
@@ -16,59 +16,59 @@ export function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
       whileHover={{ y: -4 }}
       transition={{ duration: 0.3, ease: 'easeOut' }}
     >
-      <div className="relative flex h-full min-h-[350px] flex-col overflow-hidden rounded-2xl p-6 sm:min-h-[370px] sm:p-8">
-        <div className="mb-6 flex items-center justify-between gap-4">
-          <span className="grid size-12 place-items-center rounded-xl border border-primary/25 bg-primary/[0.1] text-primary transition duration-300 group-hover:scale-[1.03] group-hover:border-primary/35">
-            <Quote className="size-6" strokeWidth={1.7} />
-          </span>
+      <div className="relative flex h-full min-h-[300px] flex-col overflow-hidden rounded-2xl p-6 sm:min-h-[320px] sm:p-8">
+        <blockquote className="line-clamp-6 text-[1.025rem] leading-[1.9] text-foreground/90 sm:text-[1.075rem] sm:leading-[1.95]">
+          &ldquo;{testimonial.message}&rdquo;
+        </blockquote>
+
+        <div className="mt-auto flex items-end justify-between gap-4 border-t border-white/[0.1] pt-5 sm:pt-6">
+          <div className="flex min-w-0 items-center gap-3.5 sm:gap-4">
+            <div className="relative grid size-14 shrink-0 place-items-center overflow-hidden rounded-full border border-primary/25 bg-white/[0.06] text-sm font-semibold text-primary shadow-[0_8px_24px_rgba(0,0,0,0.2)] sm:size-16">
+              {imageUrl ? (
+                <Image
+                  alt={image?.alt || testimonial.name || 'Testimonial author'}
+                  className="object-cover"
+                  fill
+                  sizes="64px"
+                  src={imageUrl}
+                />
+              ) : (
+                getInitials(testimonial.name)
+              )}
+            </div>
+            <div className="min-w-0">
+              <div className="flex items-center gap-1.5">
+                <p className="truncate text-base font-semibold leading-6 text-foreground">
+                  {testimonial.name}
+                </p>
+                <BadgeCheck
+                  aria-label="Verified testimonial"
+                  className="size-4 shrink-0 fill-primary/15 text-primary"
+                />
+              </div>
+              {testimonial.position ? (
+                <p className="mt-1 truncate text-sm text-muted-foreground">
+                  {testimonial.position}
+                </p>
+              ) : null}
+              {testimonial.company ? (
+                <p className="mt-0.5 truncate text-xs text-muted-foreground/70">
+                  {testimonial.company}
+                </p>
+              ) : null}
+            </div>
+          </div>
           <div
             aria-label={`${rating} out of 5 stars`}
-            className="testimonial-stars flex gap-0.5 rounded-full border border-secondary/25 bg-secondary/[0.1] px-3 py-2 text-secondary"
+            className="testimonial-stars mb-0.5 flex shrink-0 gap-px rounded-full border border-secondary/25 bg-secondary/[0.1] px-2 py-1.5 text-secondary sm:gap-0.5 sm:px-3"
           >
             {Array.from({ length: 5 }).map((_, index) => (
               <Star
-                className={cn('size-4', index < rating ? 'fill-current' : 'opacity-25')}
+                className={cn('size-3 sm:size-3.5', index < rating ? 'fill-current' : 'opacity-25')}
                 key={index}
                 style={{ animationDelay: `${index * 55}ms` }}
               />
             ))}
-          </div>
-        </div>
-
-        <blockquote className="line-clamp-7 text-[1.025rem] leading-[1.9] text-foreground/90 sm:text-[1.075rem] sm:leading-[1.95]">
-          &ldquo;{testimonial.message}&rdquo;
-        </blockquote>
-
-        <div className="mt-auto flex items-center gap-4 border-t border-white/[0.1] pt-5 sm:pt-6">
-          <div className="relative grid size-14 shrink-0 place-items-center overflow-hidden rounded-full border border-primary/25 bg-white/[0.06] text-sm font-semibold text-primary shadow-[0_8px_24px_rgba(0,0,0,0.2)] sm:size-16">
-            {imageUrl ? (
-              <Image
-                alt={image?.alt || testimonial.name || 'Testimonial author'}
-                className="object-cover"
-                fill
-                sizes="64px"
-                src={imageUrl}
-              />
-            ) : (
-              getInitials(testimonial.name)
-            )}
-          </div>
-          <div className="min-w-0">
-            <div className="flex items-center gap-1.5">
-              <p className="truncate text-base font-semibold leading-6 text-foreground">
-                {testimonial.name}
-              </p>
-              <BadgeCheck
-                aria-label="Verified testimonial"
-                className="size-4 shrink-0 fill-primary/15 text-primary"
-              />
-            </div>
-            {testimonial.position ? (
-              <p className="mt-1 truncate text-sm text-muted-foreground">{testimonial.position}</p>
-            ) : null}
-            {testimonial.company ? (
-              <p className="mt-0.5 truncate text-xs text-muted-foreground/70">{testimonial.company}</p>
-            ) : null}
           </div>
         </div>
       </div>
