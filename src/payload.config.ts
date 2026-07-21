@@ -34,6 +34,8 @@ const r2Enabled = Boolean(
 
 const maxUploadSize = 150 * 1024 * 1024
 
+console.log('PAYLOAD DATABASE_URI:', process.env.DATABASE_URI)
+
 export default buildConfig({
   admin: {
     user: Users.slug,
@@ -111,3 +113,4 @@ export default buildConfig({
     outputFile: path.resolve(dirname, 'types/payload-types.ts')
   }
 })
+
